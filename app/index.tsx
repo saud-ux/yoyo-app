@@ -41,6 +41,7 @@ export default function AudioLabScreen() {
   const [elapsedSec, setElapsedSec] = useState(0);
   const [fired, setFired] = useState(0);
   const [firedInBackground, setFiredInBackground] = useState(0);
+  const [missed, setMissed] = useState(0);
   const [lastDriftMs, setLastDriftMs] = useState(0);
   const [maxDriftMs, setMaxDriftMs] = useState(0);
 
@@ -88,6 +89,7 @@ export default function AudioLabScreen() {
     setElapsedSec(0);
     setFired(0);
     setFiredInBackground(0);
+    setMissed(0);
     setLastDriftMs(0);
     setMaxDriftMs(0);
 
@@ -106,6 +108,9 @@ export default function AudioLabScreen() {
           if (appStateRef.current !== 'active') {
             setFiredInBackground((count) => count + 1);
           }
+        },
+        onMissed: () => {
+          setMissed((count) => count + 1);
         },
         onFinish: () => {
           playCue('end');
@@ -197,6 +202,13 @@ export default function AudioLabScreen() {
         </View>
         <View style={styles.statsRow}>
           <Stat label="في الخلفية" value={String(firedInBackground)} />
+          <Stat
+            label="متجاوَزة"
+            value={String(missed)}
+            tone={missed > 0 ? 'bad' : 'neutral'}
+          />
+        </View>
+        <View style={styles.statsRow}>
           <Stat
             label="أقصى انحراف"
             value={`${maxDriftMs >= 0 ? '+' : ''}${maxDriftMs} م.ث`}
