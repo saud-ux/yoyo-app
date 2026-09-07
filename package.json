@@ -1,0 +1,30 @@
+{
+  "name": "nabd-app",
+  "version": "1.0.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "ios": "expo start --ios",
+    "android": "expo start --android",
+    "typecheck": "tsc --noEmit",
+    "tones": "node scripts/generate-tones.mjs"
+  },
+  "dependencies": {
+    "expo": "~57.0.20",
+    "expo-audio": "~57.0.4",
+    "expo-constants": "~57.0.17",
+    "expo-haptics": "~57.0.2",
+    "expo-linking": "~57.0.9",
+    "expo-router": "~57.0.19",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "private": true
+}
