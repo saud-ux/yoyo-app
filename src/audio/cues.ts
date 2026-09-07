@@ -18,24 +18,41 @@ const HAPTICS: Record<CueName, Haptics.ImpactFeedbackStyle> = {
 };
 
 /**
- * Two players per cue, used alternately. A cue can be re-triggered before the
- * previous one has finished rewinding, and `seekTo` is async — one player would
- * mean either a swallowed beep or an unpredictable delay.
+ * Two players per cue, used alternately, so a cue re-triggered before the
+ * previous instance has finished rewinding still starts from a player that is
+ * parked at zero.
  */
 const POOL_SIZE = 2;
 
-type Pool = { players: AudioPlayer[]; next: number };
+type Subscription = ReturnType<AudioPlayer['addListener']>;
+
+type Pool = { players: AudioPlayer[]; next: number; subscriptions: Subscription[] };
 
 let pools: Record<CueName, Pool> | null = null;
 
 function build(name: CueName): Pool {
-  const players = Array.from({ length: POOL_SIZE }, () =>
+  const players: AudioPlayer[] = [];
+  const subscriptions: Subscription[] = [];
+
+  for (let i = 0; i < POOL_SIZE; i += 1) {
     // keepAudioSessionActive stops the session from tearing down between cues,
     // which on iOS would suspend the app during the 10 s recovery periods.
-    createAudioPlayer(SOURCES[name], { keepAudioSessionActive: true }),
-  );
-  for (const player of players) player.volume = 1;
-  return { players, next: 0 };
+    const player = createAudioPlayer(SOURCES[name], { keepAudioSessionActive: true });
+    player.volume = 1;
+
+    // Rewind the moment the cue ends, so the seek is never on the critical path
+    // of the next one. iOS raises this from AVPlayerItemDidPlayToEndTime rather
+    // than from the status poll, so it lands as soon as the sound stops.
+    subscriptions.push(
+      player.addListener('playbackStatusUpdate', (status) => {
+        if (status.didJustFinish) player.seekTo(0).catch(() => {});
+      }),
+    );
+
+    players.push(player);
+  }
+
+  return { players, next: 0, subscriptions };
 }
 
 /** Loads every cue up front so the first beep is not late. */
@@ -52,14 +69,15 @@ export function loadCues(): void {
 export function releaseCues(): void {
   if (!pools) return;
   for (const pool of Object.values(pools)) {
+    for (const subscription of pool.subscriptions) subscription.remove();
     for (const player of pool.players) player.remove();
   }
   pools = null;
 }
 
 /**
- * Fires a cue now. Synchronous on purpose: the rewind of the player we just
- * used happens afterwards, so nothing is awaited on the critical path.
+ * Fires a cue now. Synchronous on purpose: an idle player is already parked at
+ * zero, so nothing is awaited on the critical path.
  */
 export function playCue(name: CueName, withHaptics = true): void {
   if (!pools) loadCues();
@@ -67,7 +85,12 @@ export function playCue(name: CueName, withHaptics = true): void {
   const player = pool.players[pool.next];
   pool.next = (pool.next + 1) % pool.players.length;
 
-  player.seekTo(0).catch(() => {});
+  // Normally a no-op. It only costs a seek when the rewind never arrived — a
+  // cue cut short by an interruption, or one re-triggered inside a pool cycle —
+  // which is exactly when playing from the old position would be silent.
+  if (player.currentTime > 0) {
+    player.seekTo(0).catch(() => {});
+  }
   player.play();
 
   if (withHaptics) {
