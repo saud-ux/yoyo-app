@@ -10,9 +10,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { playCue, type CueName } from '../src/audio/cues';
-import { startKeepAlive, stopKeepAlive } from '../src/audio/keepAlive';
-import { configureAudioSession } from '../src/audio/session';
+import { playCue, setCueVolume, type CueName } from '../src/audio/cues';
+import {
+  addKeepAliveListener,
+  isKeepAliveRunning,
+  startKeepAlive,
+  stopKeepAlive,
+} from '../src/audio/keepAlive';
+import { configureAudioSession, reactivateAudioSession } from '../src/audio/session';
 import {
   buildIntervalSchedule,
   runCueSchedule,
@@ -44,10 +49,15 @@ export default function AudioLabScreen() {
   const [missed, setMissed] = useState(0);
   const [lastDriftMs, setLastDriftMs] = useState(0);
   const [maxDriftMs, setMaxDriftMs] = useState(0);
+  const [interrupted, setInterrupted] = useState(false);
+  const [interruptions, setInterruptions] = useState(0);
 
   const scheduleRef = useRef<CueSchedule | null>(null);
   const tickerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const appStateRef = useRef<AppStateStatus>(AppState.currentState);
+  const runningRef = useRef(false);
+  const interruptedRef = useRef(false);
+  const recoveringRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -65,12 +75,60 @@ export default function AudioLabScreen() {
     };
   }, []);
 
+  /**
+   * Ask for the audio session back. Safe to call repeatedly — the keep-alive
+   * listener calls it once per interruption, and the button calls it on demand.
+   */
+  const recoverAudio = useCallback(async () => {
+    if (recoveringRef.current) return;
+    recoveringRef.current = true;
+    try {
+      await reactivateAudioSession();
+      // expo-audio halves every player's volume when an interruption begins and
+      // restores it only if iOS reports shouldResume. Without this, a call that
+      // ends without that flag leaves every beep 6 dB down for the rest of the
+      // test, and a second interruption halves it again.
+      setCueVolume(1);
+      startKeepAlive();
+    } catch (error: unknown) {
+      setSessionError(error instanceof Error ? error.message : String(error));
+    } finally {
+      recoveringRef.current = false;
+    }
+  }, []);
+
+  const markInterrupted = useCallback(() => {
+    if (!runningRef.current || interruptedRef.current) return;
+    interruptedRef.current = true;
+    setInterrupted(true);
+    setInterruptions((count) => count + 1);
+    void recoverAudio();
+  }, [recoverAudio]);
+
+  useEffect(
+    () =>
+      addKeepAliveListener((state) => {
+        if (state === 'playing') {
+          interruptedRef.current = false;
+          setInterrupted(false);
+          return;
+        }
+        markInterrupted();
+      }),
+    [markInterrupted],
+  );
+
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (next) => {
       appStateRef.current = next;
+      // Waking from a suspension is often the first chance we get to notice
+      // that the session was taken while no JavaScript was running at all.
+      if (next === 'active' && runningRef.current && !isKeepAliveRunning()) {
+        markInterrupted();
+      }
     });
     return () => subscription.remove();
-  }, []);
+  }, [markInterrupted]);
 
   const stopTest = useCallback(() => {
     scheduleRef.current?.stop();
@@ -78,6 +136,9 @@ export default function AudioLabScreen() {
     if (tickerRef.current) clearInterval(tickerRef.current);
     tickerRef.current = null;
     stopKeepAlive();
+    runningRef.current = false;
+    interruptedRef.current = false;
+    setInterrupted(false);
     setRunning(false);
   }, []);
 
@@ -92,7 +153,12 @@ export default function AudioLabScreen() {
     setMissed(0);
     setLastDriftMs(0);
     setMaxDriftMs(0);
+    setInterruptions(0);
+    setInterrupted(false);
+    interruptedRef.current = false;
+    runningRef.current = true;
 
+    setCueVolume(1);
     // Must be playing before the first gap, otherwise iOS can suspend the app
     // between cues and every pending timer stops with it.
     startKeepAlive();
@@ -214,11 +280,32 @@ export default function AudioLabScreen() {
             value={`${maxDriftMs >= 0 ? '+' : ''}${maxDriftMs} م.ث`}
             tone={Math.abs(maxDriftMs) > 150 ? 'bad' : 'good'}
           />
+          <Stat
+            label="الانقطاعات"
+            value={String(interruptions)}
+            tone={interruptions > 0 ? 'bad' : 'neutral'}
+          />
         </View>
         <Text style={styles.footnote}>
           آخر انحراف: {lastDriftMs >= 0 ? '+' : ''}
           {lastDriftMs} مللي ثانية
         </Text>
+
+        {interrupted && (
+          <View style={[styles.card, styles.cardDanger]}>
+            <Text style={styles.cardLabel}>انقطع الصوت</Text>
+            <Text style={[styles.cardValue, styles.cardValueDanger]}>
+              أخذ النظام جلسة الصوت — مكالمة أو منبّه. المؤقّت ما زال يعمل
+              والصافرات الفائتة تُسقَط. جارٍ محاولة الاستعادة.
+            </Text>
+            <Pressable
+              onPress={() => void recoverAudio()}
+              style={({ pressed }) => [styles.resumeButton, pressed && styles.pressed]}
+            >
+              <Text style={styles.resumeText}>استئناف الصوت</Text>
+            </Pressable>
+          </View>
+        )}
 
         <Pressable
           disabled={!ready}
@@ -314,6 +401,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   cardWarn: { borderColor: colors.warning },
+  cardDanger: { borderColor: colors.danger },
   cardLabel: {
     color: colors.textMuted,
     fontSize: 14,
@@ -328,6 +416,15 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   cardValueWarn: { color: colors.warning },
+  cardValueDanger: { color: colors.danger },
+  resumeButton: {
+    marginTop: 10,
+    backgroundColor: colors.danger,
+    borderRadius: 14,
+    paddingVertical: 18,
+    alignItems: 'center',
+  },
+  resumeText: { color: colors.text, fontSize: 22, fontWeight: '800' },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
   cueButton: {
     flexGrow: 1,

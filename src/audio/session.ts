@@ -1,4 +1,4 @@
-import { setAudioModeAsync } from 'expo-audio';
+import { setAudioModeAsync, setIsAudioActiveAsync } from 'expo-audio';
 
 /**
  * The whole app depends on this call. The user puts the phone on the ground,
@@ -19,4 +19,15 @@ export async function configureAudioSession(): Promise<void> {
     shouldRouteThroughEarpiece: false,
     allowsRecording: false,
   });
+}
+
+/**
+ * Recovery path after an interruption — a call, an alarm, Siri.
+ *
+ * Re-applying the audio mode is not enough on its own: once something else has
+ * taken the session, iOS leaves it deactivated until someone asks for it back.
+ */
+export async function reactivateAudioSession(): Promise<void> {
+  await configureAudioSession();
+  await setIsAudioActiveAsync(true);
 }
