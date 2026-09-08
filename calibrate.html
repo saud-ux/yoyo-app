@@ -143,9 +143,13 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
   <h2><span class="n">2</span> سجّل الأحداث</h2>
   <div class="stack">
     <button class="btn primary big" id="startBtn" disabled>🏁 أول صافرة (بدأ الاختبار)</button>
-    <div class="row big-actions">
-      <button class="btn ghost" id="frontBtn" disabled>← أمامي (خط البداية)<span class="kb">A</span></button>
-      <button class="btn ghost" id="sideBtn"  disabled>→ عند 20م<span class="kb">L</span></button>
+    <div class="row">
+      <button class="btn ghost" id="frontOutBtn" disabled>ذهاباً بالأمامي <b>(20)</b><span class="kb">1</span></button>
+      <button class="btn ghost" id="frontInBtn"  disabled>إياباً بالأمامي <b>(20)</b><span class="kb">2</span></button>
+    </div>
+    <div class="row">
+      <button class="btn ghost" id="sideOutBtn" disabled>ذهاباً بالجانبي <b>(12.5)</b><span class="kb">3</span></button>
+      <button class="btn ghost" id="sideInBtn"  disabled>إياباً بالجانبي <b>(12.5)</b><span class="kb">4</span></button>
     </div>
     <button class="btn ghost" id="levelBtn" disabled>⬆ بداية مستوى جديد<span class="kb">Space</span></button>
   </div>
@@ -155,9 +159,9 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
     <div><span class="k">المستوى</span><span class="v" id="mLvl">—</span></div>
   </div>
   <p class="hint">
-    كل ضغطة "أمامي" أو "عند 20م" = شوط 20م مكتمل، وتزيد المسافة 20.
+    أزرار الأمامي = 20م، أزرار الجانبي = 12.5م. كل ضغطة تُسجّل شوطًا وتزيد المسافة.
     "بداية مستوى جديد" ينقلك للمستوى التالي (1، 2، 3…).
-    اختصارات لوحة المفاتيح: A / L / Space لسرعة أعلى.
+    اختصارات لوحة المفاتيح: 1 / 2 / 3 / 4 / Space.
   </p>
 </section>
 
@@ -225,8 +229,10 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
     $("pauseBtn").disabled = false;
     $("startBtn").disabled = false;
     $("levelBtn").disabled = false;
-    $("frontBtn").disabled = !started;
-    $("sideBtn").disabled  = !started;
+    $("frontOutBtn").disabled = !started;
+    $("frontInBtn").disabled  = !started;
+    $("sideOutBtn").disabled  = !started;
+    $("sideInBtn").disabled   = !started;
     $("status").innerHTML = started
       ? 'الاختبار بدأ — <b>الشوط '+lap+'</b> · <b>'+dist+' م</b>'
       : 'شغّل الصوت — اضغط <b>أول صافرة</b> عند سماعها.';
@@ -254,8 +260,9 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
     if(!confirm("تصفير الوقت والسجل معًا؟")) return;
     audio.pause(); audio.currentTime = 0;
     events = []; started = false; level = 0; lap = 0; dist = 0; testStartT = null;
-    $("startBtn").disabled = true; $("frontBtn").disabled = true;
-    $("sideBtn").disabled = true; $("levelBtn").disabled = true;
+    $("startBtn").disabled = true; $("levelBtn").disabled = true;
+    $("frontOutBtn").disabled = true; $("frontInBtn").disabled = true;
+    $("sideOutBtn").disabled  = true; $("sideInBtn").disabled  = true;
     $("status").innerHTML = 'جاهز — اضغط <b>شغّل الصوت</b>.';
     renderAll();
   });
@@ -280,22 +287,25 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
     var t = audio.currentTime || 0;
     testStartT = t; started = true; level = 1; lap = 0; dist = 0;
     events.push({t: +t.toFixed(3), kind: "start", label: "بدأ الاختبار", level: 1});
-    $("frontBtn").disabled = false; $("sideBtn").disabled = false;
+    $("frontOutBtn").disabled = false; $("frontInBtn").disabled = false;
+    $("sideOutBtn").disabled  = false; $("sideInBtn").disabled  = false;
     $("status").innerHTML = 'الاختبار بدأ عند <b>' + fmt(t).a + fmt(t).b + '</b> — سجّل كل شوط.';
     save(); renderAll();
     toast("🏁 بدأ الاختبار");
   });
 
-  function shuttle(kind, label){
+  function shuttle(kind, label, meters){
     if(!started) return;
-    lap += 1; dist += 20;
+    lap += 1; dist = +(dist + meters).toFixed(1);
     events.push({t: +(audio.currentTime||0).toFixed(3), kind: kind, label: label,
-                 level: level, lap: lap, dist: dist});
+                 m: meters, level: level, lap: lap, dist: dist});
     save(); renderAll();
-    toast(label + " · شوط " + lap);
+    toast(label + " · +" + meters + "م");
   }
-  $("frontBtn").addEventListener("click", function(){ shuttle("front", "أمامي (خط البداية)"); });
-  $("sideBtn").addEventListener("click",  function(){ shuttle("side",  "عند 20م"); });
+  $("frontOutBtn").addEventListener("click", function(){ shuttle("frontOut", "ذهاباً بالأمامي", 20); });
+  $("frontInBtn").addEventListener("click",  function(){ shuttle("frontIn",  "إياباً بالأمامي", 20); });
+  $("sideOutBtn").addEventListener("click",  function(){ shuttle("sideOut",  "ذهاباً بالجانبي", 12.5); });
+  $("sideInBtn").addEventListener("click",   function(){ shuttle("sideIn",   "إياباً بالجانبي", 12.5); });
 
   $("levelBtn").addEventListener("click", function(){
     if(!started){
@@ -313,8 +323,10 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
   document.addEventListener("keydown", function(e){
     if(e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
     var k = e.key.toLowerCase();
-    if(k === "a"){ e.preventDefault(); $("frontBtn").click(); }
-    else if(k === "l"){ e.preventDefault(); $("sideBtn").click(); }
+    if(k === "1"){ e.preventDefault(); $("frontOutBtn").click(); }
+    else if(k === "2"){ e.preventDefault(); $("frontInBtn").click(); }
+    else if(k === "3"){ e.preventDefault(); $("sideOutBtn").click(); }
+    else if(k === "4"){ e.preventDefault(); $("sideInBtn").click(); }
     else if(k === " "){ e.preventDefault(); $("levelBtn").click(); }
     else if(k === "enter" && !started){ e.preventDefault(); $("startBtn").click(); }
   });
@@ -327,9 +339,9 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
       var ev = events[i];
       if(ev.kind === "start"){ l = 1; lp = 0; d = 0; }
       else if(ev.kind === "level"){ l = ev.level || (l+1); lp = 0; d = 0; }
-      else if(ev.kind === "front" || ev.kind === "side"){ lp += 1; d += 20; }
+      else if(ev.m != null){ lp += 1; d += ev.m; }
     }
-    level = l; lap = lp; dist = d;
+    level = l; lap = lp; dist = +d.toFixed(1);
     $("mLap").textContent  = lap;
     $("mDist").textContent = dist;
     $("mLvl").textContent  = level || "—";
@@ -373,7 +385,8 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
   $("clearBtn").addEventListener("click", function(){
     if(!confirm("حذف كل السجل؟ لا يمكن التراجع.")) return;
     events = []; started = false; level = 0; lap = 0; dist = 0; testStartT = null;
-    $("frontBtn").disabled = true; $("sideBtn").disabled = true;
+    $("frontOutBtn").disabled = true; $("frontInBtn").disabled = true;
+    $("sideOutBtn").disabled  = true; $("sideInBtn").disabled  = true;
     save(); renderAll();
   });
 
@@ -387,8 +400,10 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
   /* ---------- Init ---------- */
   if(events.length && started){
     $("startBtn").disabled = false;
-    $("frontBtn").disabled = false;
-    $("sideBtn").disabled  = false;
+    $("frontOutBtn").disabled = false;
+    $("frontInBtn").disabled  = false;
+    $("sideOutBtn").disabled  = false;
+    $("sideInBtn").disabled   = false;
     $("levelBtn").disabled = false;
     $("status").innerHTML = 'استُعيدت الجلسة — <b>الشوط '+lap+'</b> · <b>'+dist+' م</b>.';
   }
