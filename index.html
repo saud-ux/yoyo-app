@@ -2051,14 +2051,29 @@ window.__YOYO_TL={"a":"audio/yoyo.mp3","ts":23,"fb":29.27,"td":4480,"lv":[[1,40.
     a.addEventListener("pause",function(){btns();});
     return a;
   }
-  function ensureAudio(){ if(!audio)audio=makeAudio(AUDIO_PRIMARY); return audio; }
+  /* نقص 6 ثوانٍ من مقدّمة الصوت: العدّاد يبدأ من 23 ث بدل 29 ث. */
+  var INTRO_TRIM=6;
+  function ensureAudio(){
+    if(!audio){
+      audio=makeAudio(AUDIO_PRIMARY);
+      var seeded=false;
+      var seed=function(){ if(seeded)return; seeded=true;
+        try{ if(audio.currentTime<INTRO_TRIM)audio.currentTime=INTRO_TRIM; }catch(e){} };
+      if(audio.readyState>=1)seed();
+      else audio.addEventListener("loadedmetadata",seed,{once:true});
+    }
+    return audio;
+  }
 
   function segAt(t){ if(!SEG.length)return -1; var lo=0,hi=SEG.length-1,ans=-1;
     while(lo<=hi){var m=(lo+hi)>>1; if(SEG[m][0]<=t){ans=m;lo=m+1;}else hi=m-1;} return ans; }
   function fmtSpeed(s){return (Math.round(s*10)/10).toFixed(1);}
 
   function update(){
-    if(!audio)return; var t=audio.currentTime; var ph=$("yy-phase");
+    if(!audio)return; var t=audio.currentTime;
+    /* قبل ما يبدأ التشغيل يعرض العدّاد من موضع الاقتطاع، لا من الصفر. */
+    if(audio.paused&&t<INTRO_TRIM)t=INTRO_TRIM;
+    var ph=$("yy-phase");
     var t0=SEG.length?SEG[0][0]:1e9;
     if(t<t0){
       ph.style.background="var(--test)";
@@ -2099,9 +2114,11 @@ window.__YOYO_TL={"a":"audio/yoyo.mp3","ts":23,"fb":29.27,"td":4480,"lv":[[1,40.
     $("yy-pbig").textContent="أحسنت";$("yy-pnx").textContent="سجّل مسافتك الأخيرة";$("yy-pfill").style.width="100%";
     btns(); syncSave(); }
 
-  function start(){ var a=ensureAudio(); a.play().catch(function(){$("yy-pnx").textContent="اضغط ابدأ مجددًا للسماح بتشغيل الصوت";}); }
+  function start(){ var a=ensureAudio();
+    try{ if(a.currentTime<INTRO_TRIM)a.currentTime=INTRO_TRIM; }catch(e){}
+    a.play().catch(function(){$("yy-pnx").textContent="اضغط ابدأ مجددًا للسماح بتشغيل الصوت";}); }
   function pause(){ if(audio)audio.pause(); stopLoop(); }
-  function reset(){ if(audio){audio.pause();audio.currentTime=0;} stopLoop(); update(); btns(); }
+  function reset(){ if(audio){audio.pause();audio.currentTime=INTRO_TRIM;} stopLoop(); update(); btns(); }
   function skipIntro(){ var a=ensureAudio(); try{a.currentTime=Math.max(0,(TL.ts||0));}catch(e){} a.play().catch(function(){}); }
 
   /* ===== حفظ المسافة كنتيجة اختبار ===== */
