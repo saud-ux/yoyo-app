@@ -149,7 +149,7 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
     </div>
     <div class="row">
       <button class="btn ghost" id="sideOutBtn" disabled>ذهاباً بالجانبي <b>(12.5)</b><span class="kb">3</span></button>
-      <button class="btn ghost" id="sideInBtn"  disabled>إياباً بالجانبي <b>(12.5)</b><span class="kb">4</span></button>
+      <button class="btn ghost" id="sideInBtn"  disabled>إياباً بالجانبي <b>(12.5)</b> ⬆<span class="kb">4</span></button>
     </div>
     <button class="btn ghost" id="levelBtn" disabled>⬆ بداية مستوى جديد<span class="kb">Space</span></button>
   </div>
@@ -160,7 +160,7 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
   </div>
   <p class="hint">
     أزرار الأمامي = 20م، أزرار الجانبي = 12.5م. كل ضغطة تُسجّل شوطًا وتزيد المسافة.
-    "بداية مستوى جديد" ينقلك للمستوى التالي (1، 2، 3…).
+    "إياباً بالجانبي" ⬆ ينهي دورة الاستشفاء ويبدأ المستوى التالي تلقائياً.
     اختصارات لوحة المفاتيح: 1 / 2 / 3 / 4 / Space.
   </p>
 </section>
@@ -305,7 +305,16 @@ textarea{width:100%;min-height:120px;background:var(--bg);color:var(--ink);
   $("frontOutBtn").addEventListener("click", function(){ shuttle("frontOut", "ذهاباً بالأمامي", 20); });
   $("frontInBtn").addEventListener("click",  function(){ shuttle("frontIn",  "إياباً بالأمامي", 20); });
   $("sideOutBtn").addEventListener("click",  function(){ shuttle("sideOut",  "ذهاباً بالجانبي", 12.5); });
-  $("sideInBtn").addEventListener("click",   function(){ shuttle("sideIn",   "إياباً بالجانبي", 12.5); });
+  $("sideInBtn").addEventListener("click",   function(){
+    if(!started) return;
+    shuttle("sideIn", "إياباً بالجانبي", 12.5);
+    /* الجانبي إياباً = نهاية دورة الاستشفاء ⇒ يبدأ مستوى جديد تلقائياً. */
+    level += 1;
+    events.push({t: +(audio.currentTime||0).toFixed(3), kind:"level",
+                 label:"مستوى "+level+" (تلقائي)", level:level, auto:true});
+    save(); renderAll();
+    toast("إياباً بالجانبي · ⬆ مستوى " + level);
+  });
 
   $("levelBtn").addEventListener("click", function(){
     if(!started){
