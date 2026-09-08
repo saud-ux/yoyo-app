@@ -1,0 +1,19 @@
+{
+  "name": "برنامج اليو‑يو — Yo-Yo IR1",
+  "short_name": "اليو‑يو",
+  "lang": "ar",
+  "dir": "rtl",
+  "description": "برنامج تدريب 8 أسابيع لاجتياز اختبار Yo-Yo IR1 مع نطاقات نبض ومشغّل صافرات الاختبار.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1411",
+  "theme_color": "#0f9d76",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

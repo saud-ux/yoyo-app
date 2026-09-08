@@ -1,0 +1,2220 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="برنامج تدريب 8 أسابيع لاجتياز اختبار Yo-Yo IR1 مع مشغّل صافرات الاختبار الحقيقي المتزامن، ونطاقات نبض وشرح لكل تمرين.">
+<title>برنامج اليو‑يو</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f9d76">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="اليو‑يو">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>برنامج اليو‑يو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  /* ===== Design tokens — light (default) ===== */
+  :root{
+    --bg:#f3f6f4; --bg-2:#e8ede9; --surface:#ffffff; --surface-2:#f0f4f1;
+    --ink:#13201b; --ink-2:#4c5a53; --ink-3:#7f8d86; --line:#dae2dd; --line-2:#c7d2cb;
+    --accent:#0f9d76; --accent-ink:#0a6c51; --accent-soft:#dcf0e8;
+    --shadow:0 1px 2px rgba(19,32,27,.05), 0 8px 24px -12px rgba(19,32,27,.18);
+    --z1:#5b93c9; --z2:#2f9e6b; --z3:#d3a02a; --z4:#dd7530; --z5:#d24545; --test:#7b5cd6;
+    --z1-soft:#e3edf7; --z2-soft:#dcf0e6; --z3-soft:#f6ecd0; --z4-soft:#f7e5d6; --z5-soft:#f6dcdc; --test-soft:#e9e2f9;
+    --radius:14px;
+    --f-display:"Tajawal","IBM Plex Sans Arabic",system-ui,sans-serif;
+    --f-body:"IBM Plex Sans Arabic","Tajawal",system-ui,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"Cascadia Code",monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0d1411; --bg-2:#121b16; --surface:#16211b; --surface-2:#1d2a23;
+      --ink:#e9efea; --ink-2:#a7b7af; --ink-3:#77877e; --line:#25332c; --line-2:#31423a;
+      --accent:#2ec48f; --accent-ink:#83e3c1; --accent-soft:#123227;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+      --z1:#6fa6db; --z2:#3ab57c; --z3:#e6ba43; --z4:#ec8b49; --z5:#e5706b; --test:#9d7ef0;
+      --z1-soft:#1a2632; --z2-soft:#12291f; --z3-soft:#2a2413; --z4-soft:#2a1f14; --z5-soft:#2a1717; --test-soft:#221b33;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0d1411; --bg-2:#121b16; --surface:#16211b; --surface-2:#1d2a23;
+    --ink:#e9efea; --ink-2:#a7b7af; --ink-3:#77877e; --line:#25332c; --line-2:#31423a;
+    --accent:#2ec48f; --accent-ink:#83e3c1; --accent-soft:#123227;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+    --z1:#6fa6db; --z2:#3ab57c; --z3:#e6ba43; --z4:#ec8b49; --z5:#e5706b; --test:#9d7ef0;
+    --z1-soft:#1a2632; --z2-soft:#12291f; --z3-soft:#2a2413; --z4-soft:#2a1f14; --z5-soft:#2a1717; --test-soft:#221b33;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
+    font-size:16px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;}
+  .page{direction:rtl}
+  .ltr{direction:ltr;unicode-bidi:isolate;font-family:var(--f-mono);font-feature-settings:"tnum";}
+  h1,h2,h3,h4{font-family:var(--f-display);line-height:1.2;text-wrap:balance;margin:0}
+  a{color:var(--accent-ink)}
+  button{font-family:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* ===== Top bar ===== */
+  .topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .row{display:flex;align-items:center;gap:16px;padding:12px 0;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--f-display);font-weight:800;font-size:18px}
+  .brand .glyph{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#fff;
+    display:grid;place-items:center;font-weight:900;font-size:15px;box-shadow:var(--shadow)}
+  .brand small{display:block;font-family:var(--f-body);font-weight:500;color:var(--ink-3);font-size:11.5px}
+  .topbar .spacer{flex:1}
+  .count{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line);
+    border-radius:999px;padding:6px 14px 6px 10px;box-shadow:var(--shadow)}
+  .count b{font-family:var(--f-mono);font-size:19px;font-weight:600;color:var(--accent-ink)}
+  .count span{font-size:12px;color:var(--ink-2)}
+  .count .dot{width:8px;height:8px;border-radius:50%;background:var(--z5);box-shadow:0 0 0 4px var(--z5-soft)}
+  .tbtn{background:var(--surface);border:1px solid var(--line);color:var(--ink-2);width:38px;height:38px;
+    border-radius:10px;cursor:pointer;font-size:16px;display:grid;place-items:center}
+  .tbtn:hover{border-color:var(--line-2);color:var(--ink)}
+
+  /* ===== Hero / profile ===== */
+  .hero{padding:40px 0 8px}
+  .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--accent-ink);
+    text-transform:uppercase;font-weight:600;margin-bottom:14px}
+  .hero h1{font-size:clamp(30px,5.2vw,50px);font-weight:900;letter-spacing:-.01em}
+  .hero .lede{color:var(--ink-2);font-size:clamp(15px,2vw,18px);max-width:60ch;margin:16px 0 0}
+  .profile{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:28px}
+  .stat{background:var(--surface);padding:16px 18px}
+  .stat .k{font-size:12px;color:var(--ink-3);margin-bottom:6px}
+  .stat .v{font-family:var(--f-mono);font-size:26px;font-weight:600;color:var(--ink);line-height:1}
+  .stat .u{font-size:12px;color:var(--ink-2);font-family:var(--f-body);font-weight:500}
+  .datebar{display:flex;align-items:center;gap:12px 14px;flex-wrap:wrap;margin-top:18px;background:var(--surface);
+    border:1px solid var(--line);border-left:4px solid var(--test);border-radius:12px;padding:13px 16px;box-shadow:var(--shadow)}
+  .datebar .lbl{font-weight:800;font-family:var(--f-display);font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .datebar .lbl .ic{width:26px;height:26px;border-radius:7px;background:var(--test-soft);color:var(--test);display:grid;place-items:center;font-size:14px}
+  .datebar input[type=date]{background:var(--bg);border:1px solid var(--line-2);border-radius:9px;
+    padding:8px 12px;font-family:var(--f-mono);font-size:14px;color:var(--ink);color-scheme:light dark}
+  .datebar input[type=date]:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .datebar .dnote{font-size:12px;color:var(--ink-3);flex:1;min-width:180px}
+  :root[data-theme="dark"] .datebar input[type=date]{color-scheme:dark}
+
+  /* ===== Section shell ===== */
+  section.block{padding:34px 0}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(21px,3vw,27px);font-weight:800}
+  .sec-head .num{font-family:var(--f-mono);font-size:13px;color:var(--accent-ink);font-weight:600;
+    border:1px solid var(--line);border-radius:7px;padding:3px 9px;background:var(--surface)}
+  .sec-head p{margin:0;color:var(--ink-2);font-size:14px;flex-basis:100%;max-width:70ch}
+
+  /* ===== Zones ===== */
+  .zone-panel{display:grid;grid-template-columns:1.55fr 1fr;gap:22px;align-items:start}
+  @media(max-width:820px){.zone-panel{grid-template-columns:1fr}}
+  .meter{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;box-shadow:var(--shadow)}
+  .meter .bars{display:flex;flex-direction:column;gap:9px}
+  .zbar{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px}
+  .zbadge{font-family:var(--f-mono);font-weight:600;font-size:13px;color:#fff;border-radius:7px;
+    text-align:center;padding:5px 0}
+  .ztrack{height:26px;border-radius:7px;position:relative;overflow:hidden;background:var(--surface-2)}
+  .zfill{height:100%;border-radius:7px;display:flex;align-items:center;padding-inline-start:10px;
+    color:#fff;font-size:12px;font-weight:600;font-family:var(--f-body)}
+  .zrange{font-family:var(--f-mono);font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap}
+  .zrange s{color:var(--ink-3);text-decoration:none;font-weight:400}
+
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;box-shadow:var(--shadow)}
+  .calc h3{font-size:15px;font-weight:700;margin-bottom:4px}
+  .calc .hint{font-size:12.5px;color:var(--ink-3);margin:0 0 16px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;font-weight:500}
+  .field label b{color:var(--ink);font-weight:600}
+  .field input{width:100%;background:var(--bg);border:1px solid var(--line-2);border-radius:9px;
+    padding:9px 12px;font-family:var(--f-mono);font-size:15px;color:var(--ink)}
+  .field input:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .calc .derived{display:flex;justify-content:space-between;align-items:center;margin-top:4px;
+    padding-top:14px;border-top:1px dashed var(--line-2)}
+  .calc .derived .k{font-size:12.5px;color:var(--ink-2)}
+  .calc .derived .v{font-family:var(--f-mono);font-size:20px;font-weight:600;color:var(--accent-ink)}
+  .note-inline{font-size:12px;color:var(--ink-3);margin-top:12px;line-height:1.5}
+
+  /* ===== Week rail ===== */
+  .rail{display:flex;gap:10px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:thin}
+  .wk{flex:0 0 auto;min-width:118px;text-align:start;background:var(--surface);border:1px solid var(--line);
+    border-radius:12px;padding:12px 14px;cursor:pointer;transition:transform .15s,border-color .15s;position:relative}
+  .wk:hover{border-color:var(--line-2);transform:translateY(-2px)}
+  .wk[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow)}
+  .wk .wn{font-family:var(--f-display);font-weight:800;font-size:16px}
+  .wk .wp{font-size:11.5px;font-weight:600;margin-top:3px;display:inline-block;padding:2px 8px;border-radius:6px}
+  .wk .wc{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);margin-top:8px}
+  .ph-base{background:var(--z1-soft);color:var(--z1)}
+  .ph-build{background:var(--accent-soft);color:var(--accent-ink)}
+  .ph-recovery{background:var(--z3-soft);color:var(--z3)}
+  .ph-taper{background:var(--test-soft);color:var(--test)}
+  .wk.done-all::after{content:"✓";position:absolute;top:8px;left:10px;color:var(--accent);font-weight:700;font-size:13px}
+  .wk .badge{position:absolute;top:-9px;inset-inline-end:10px;font-size:10.5px;font-weight:800;
+    padding:3px 9px;border-radius:999px;background:var(--accent);color:#fff;letter-spacing:.2px;
+    box-shadow:var(--shadow);white-space:nowrap;line-height:1.4}
+  .wk .badge.next{background:var(--surface);color:var(--accent-ink);border:1px solid var(--accent);box-shadow:none}
+  .wk.upcoming{border-color:var(--accent)}
+
+  /* ===== Offline audio bar ===== */
+  .offline-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+  .offline-bar .ob-txt{display:flex;flex-direction:column;gap:2px;min-width:220px;flex:1}
+  .offline-bar .ob-txt b{font-size:13.5px}
+  .offline-bar .ob-txt span{font-size:12px;color:var(--ink-2);line-height:1.5}
+  .offline-bar .ob-prog{flex-basis:100%;height:6px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+  .offline-bar .ob-prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+  .offline-bar.ready{border-color:var(--accent)}
+
+  /* ===== Plan control (تأجيل) ===== */
+  .plan-ctl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface);
+    border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+  .plan-ctl .pc-when{font-size:13px;color:var(--ink-2);line-height:1.6}
+  .plan-ctl .pc-when b{color:var(--ink);font-weight:700}
+  .plan-ctl .pc-fit{font-size:12px;margin-top:3px;color:var(--ink-3)}
+  .plan-ctl .pc-fit.warn{color:var(--test);font-weight:600}
+  .plan-ctl .pc-acts{margin-inline-start:auto;display:flex;gap:7px;flex-wrap:wrap}
+  .pill{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;
+    background:var(--surface-2);border:1px solid var(--line);color:var(--ink);
+    transition:border-color .15s,background .15s;white-space:nowrap}
+  .pill:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .pill.solid{background:var(--accent);border-color:var(--accent);color:#fff}
+  .pill.solid:hover{filter:brightness(1.08);background:var(--accent)}
+  .pill.ghost{background:transparent;border-style:dashed;color:var(--ink-2)}
+  .pill[disabled]{opacity:.45;cursor:not-allowed}
+  .pill[disabled]:hover{border-color:var(--line);background:var(--surface-2)}
+
+  /* ===== Postponed tray ===== */
+  .tray{border:1px dashed var(--line-2);border-radius:12px;padding:12px 14px;margin:0 0 18px;
+    background:var(--surface-2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .tray .th{font-size:12.5px;font-weight:700;color:var(--ink-2)}
+  .tray .ti{font-family:var(--f-mono);font-size:11.5px;background:var(--surface);border:1px solid var(--line);
+    border-radius:7px;padding:3px 8px;display:inline-flex;align-items:center;gap:6px}
+  .tray .ti button{background:none;border:0;cursor:pointer;color:var(--ink-3);font-size:13px;line-height:1;padding:0}
+  .tray .ti button:hover{color:var(--accent-ink)}
+  .tray .ti-date{font-family:var(--f-mono);font-size:10.5px;background:var(--bg);border:1px solid var(--line);
+    border-radius:5px;padding:1px 4px;color:var(--ink-2);color-scheme:light dark}
+  .tray .ti-date:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .tray .tclear{margin-inline-start:auto}
+
+  /* ===== Data / backup bar ===== */
+  .data-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;
+    background:var(--surface-2);border:1px dashed var(--line-2);border-radius:12px;padding:13px 16px}
+  .data-bar .db-txt{display:flex;flex-direction:column;gap:2px;flex:1;min-width:230px}
+  .data-bar .db-txt b{font-size:13px}
+  .data-bar .db-txt span{font-size:12px;color:var(--ink-2);line-height:1.5}
+  .data-bar .db-acts{display:flex;gap:8px;flex-wrap:wrap}
+  .data-bar .db-msg{flex-basis:100%;font-size:12.5px;padding-top:4px}
+  .data-bar .db-msg.ok{color:var(--accent-ink);font-weight:600}
+  .data-bar .db-msg.err{color:var(--test);font-weight:600}
+
+  /* ===== Results ===== */
+  .res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .res-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;box-shadow:var(--shadow);position:relative}
+  .res-card.has{border-color:var(--accent)}
+  .res-card .rc-lab{font-size:12px;font-weight:700;color:var(--ink-2)}
+  .res-card .rc-wk{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);margin-top:2px}
+  .res-card .rc-big{font-family:var(--f-display);font-weight:800;font-size:34px;margin-top:10px;line-height:1}
+  .res-card .rc-big .u{font-size:14px;font-weight:600;color:var(--ink-3);margin-inline-start:4px}
+  .res-card .rc-empty{font-size:14px;color:var(--ink-3);margin-top:12px}
+  .res-card .rc-meta{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2);
+    display:flex;flex-direction:column;gap:5px;font-size:12.5px;color:var(--ink-2)}
+  .res-card .rc-meta b{font-family:var(--f-mono);color:var(--ink);font-weight:600}
+  .res-card .rc-delta{margin-top:10px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:7px;display:inline-block}
+  .res-card .rc-delta.up{background:var(--accent-soft);color:var(--accent-ink)}
+  .res-card .rc-delta.down{background:var(--test-soft);color:var(--test)}
+  .res-sum{margin-top:18px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;font-size:13.5px;color:var(--ink-2);line-height:1.7}
+  .res-sum b{color:var(--ink)}
+
+  /* ===== Result form on a test card ===== */
+  .resform{margin-top:14px;border:1px dashed var(--line-2);border-radius:10px;padding:12px 14px;background:var(--surface-2)}
+  .resform .rf-h{font-size:12.5px;font-weight:700;margin-bottom:10px}
+  .resform .rf-row{display:flex;gap:10px;flex-wrap:wrap}
+  .resform label{flex:1;min-width:120px;font-size:11.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
+  .resform input{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px;
+    font-family:var(--f-mono);font-size:14px;color:var(--ink);width:100%}
+  .resform input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .resform .rf-out{font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.6;min-height:1px}
+  .resform .rf-out b{font-family:var(--f-mono);color:var(--accent-ink)}
+  .resform .rf-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+  /* ===== Advice ===== */
+  .adv{border-radius:12px;padding:12px 16px;margin:0 0 14px;border:1px solid var(--line);
+    background:var(--surface);display:flex;gap:11px;align-items:flex-start}
+  .adv .ai{font-size:16px;line-height:1.35;flex:0 0 auto}
+  .adv .at{font-size:13px;font-weight:700;margin-bottom:3px}
+  .adv .am{font-size:12.5px;color:var(--ink-2);line-height:1.65}
+  .adv.warn{border-color:var(--test);background:var(--test-soft)}
+  .adv.warn .at{color:var(--test)}
+  .adv.info{border-color:var(--accent);background:var(--accent-soft)}
+  .adv.info .at{color:var(--accent-ink)}
+
+  /* ===== RPE ===== */
+  .rpe{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;color:var(--ink-2)}
+  .rpe select{background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:4px 8px;
+    font-family:var(--f-mono);font-size:12px;color:var(--ink);cursor:pointer}
+  .rpe select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .rpe .rv{font-family:var(--f-mono);font-weight:700;padding:2px 8px;border-radius:6px;
+    background:var(--surface-2);border:1px solid var(--line)}
+  .rpe .rv.hard{background:var(--test-soft);color:var(--test);border-color:var(--test)}
+
+  /* ===== Postponed card ===== */
+  .card.postponed{opacity:.62;border-style:dashed}
+  .card.postponed .stripe{filter:grayscale(1)}
+  .card .dstamp{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);margin-top:4px}
+  .card .dstamp.is-today{color:var(--accent-ink);font-weight:700}
+  .flag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;
+    background:var(--line);color:var(--ink-2);margin-inline-start:6px;white-space:nowrap}
+
+  .week-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 20px}
+  .week-meta .tag{font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:7px}
+  .week-meta .vol{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-2)}
+  .week-meta .desc{flex-basis:100%;color:var(--ink-2);font-size:14px;margin:0;max-width:72ch}
+
+  /* ===== Workout grid ===== */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+  .card .stripe{height:4px}
+  .card .ch{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--line)}
+  .card .ch .day{font-family:var(--f-display);font-weight:800;font-size:19px}
+  .card .ch .focus{font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.4}
+  .chip{margin-inline-start:auto;flex:0 0 auto;font-size:11.5px;font-weight:700;padding:4px 10px;
+    border-radius:999px;white-space:nowrap}
+  .card .body{padding:14px 18px 4px;flex:1}
+  .wid{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .wid .code{font-family:var(--f-mono);font-size:12.5px;font-weight:600;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:7px;padding:3px 9px;color:var(--ink)}
+  .wid .act{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3)}
+  .wid .vol{margin-inline-start:auto;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3)}
+
+  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+  .step{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;
+    padding:8px 11px;border-radius:9px;background:var(--surface-2)}
+  .step .kind{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--ink)}
+  .step .dur{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-2)}
+  .step .tgt{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);text-align:end;white-space:nowrap}
+  .step .tgt.none{color:var(--ink-3)}
+  .step .tgt.hr{color:var(--accent-ink);font-weight:600}
+  .step .tgt.lap{color:var(--test);font-weight:600}
+  .step .kd{width:3px;align-self:stretch;border-radius:3px;background:var(--line-2);grid-row:1}
+  .rep{border:1px dashed var(--line-2);border-radius:10px;padding:8px 8px 8px;background:transparent}
+  .rep .rhead{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12.5px;
+    font-weight:600;color:var(--accent-ink);padding:2px 4px 8px}
+  .rep .rhead .x{background:var(--accent);color:#fff;border-radius:6px;padding:1px 8px;font-size:12px}
+  .rep .steps{gap:5px}
+  .rep .step{background:var(--bg)}
+  .hint{grid-column:1/-1;font-family:var(--f-body);font-size:11.5px;color:var(--ink-3);
+    padding-top:2px;line-height:1.45}
+  .notes{margin:14px 0 0;font-size:13px;color:var(--ink-2);background:var(--bg);border-inline-start:3px solid var(--accent);
+    border-radius:0 9px 9px 0;padding:10px 13px;line-height:1.55}
+  .rest{padding:26px 18px;text-align:center;color:var(--ink-2)}
+  .rest .big{font-family:var(--f-display);font-weight:800;font-size:22px;color:var(--ink);margin-bottom:6px}
+
+  .card .cf{display:flex;align-items:center;gap:10px;padding:12px 18px 16px}
+  .donebox{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--ink-2);user-select:none}
+  .donebox input{appearance:none;width:20px;height:20px;border:1.5px solid var(--line-2);border-radius:6px;
+    cursor:pointer;display:grid;place-items:center;background:var(--bg)}
+  .donebox input:checked{background:var(--accent);border-color:var(--accent)}
+  .donebox input:checked::after{content:"✓";color:#fff;font-size:13px;font-weight:700}
+  .donebox input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .copy{margin-inline-start:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;
+    padding:6px 12px;font-size:12.5px;color:var(--ink-2);cursor:pointer;display:flex;gap:6px;align-items:center}
+  .copy:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+  /* ===== Progress ===== */
+  .progress{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;box-shadow:var(--shadow);margin-top:6px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .progress .lab{font-size:13px;color:var(--ink-2)}
+  .progress .lab b{color:var(--ink);font-family:var(--f-mono);font-size:16px}
+  .bar{flex:1;min-width:180px;height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--z2));
+    border-radius:99px;transition:width .4s ease}
+  .reset{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;
+    font-size:12px;color:var(--ink-3);cursor:pointer}
+  .reset:hover{color:var(--z5);border-color:var(--z5)}
+
+  /* ===== Details / guide ===== */
+  .guides{display:grid;gap:14px;margin-top:8px}
+  details.g{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;box-shadow:var(--shadow)}
+  details.g > summary{cursor:pointer;padding:16px 20px;font-family:var(--f-display);font-weight:700;
+    font-size:16px;display:flex;align-items:center;gap:12px;list-style:none}
+  details.g > summary::-webkit-details-marker{display:none}
+  details.g > summary .ic{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);
+    color:var(--accent-ink);display:grid;place-items:center;font-size:15px;flex:0 0 auto}
+  details.g > summary .arrow{margin-inline-start:auto;color:var(--ink-3);transition:transform .2s}
+  details.g[open] > summary .arrow{transform:rotate(180deg)}
+  .g-body{padding:4px 20px 20px;border-top:1px solid var(--line);color:var(--ink-2);font-size:14px}
+  .g-body h4{font-size:14.5px;color:var(--ink);margin:18px 0 8px}
+  .g-body ol,.g-body ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:8px}
+  .g-body li{line-height:1.6}
+  .g-body strong{color:var(--ink)}
+  .warn{background:var(--z4-soft);border:1px solid color-mix(in srgb,var(--z4) 35%,transparent);
+    border-radius:10px;padding:12px 14px;margin:14px 0;color:var(--ink);font-size:13.5px;line-height:1.6}
+  .warn b{color:var(--z4)}
+  pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;
+    direction:ltr;text-align:left;margin:12px 0}
+  pre code{font-family:var(--f-mono);font-size:12.5px;color:var(--ink);line-height:1.65;white-space:pre}
+  .codehead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 0;direction:ltr}
+  .codehead .fn{font-family:var(--f-mono);font-size:12px;color:var(--ink-3)}
+  .cmp{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  .cmp th,.cmp td{border:1px solid var(--line);padding:9px 11px;text-align:start;vertical-align:top}
+  .cmp th{background:var(--surface-2);font-weight:600;color:var(--ink)}
+  .cmp .rec{color:var(--accent-ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);margin-top:24px;padding:24px 0 40px;color:var(--ink-3);font-size:12.5px}
+  footer .disc{max-width:75ch;line-height:1.6}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  @media print{.topbar,.calc,.cf,.reset,.tbtn,.playcta{display:none!important}.card{break-inside:avoid}}
+
+  /* ===== Per-workout how-to explainer ===== */
+  .card{position:relative}
+  .infob{width:26px;height:26px;flex:0 0 auto;border-radius:50%;border:1.5px solid var(--line-2);
+    background:var(--bg);color:var(--accent-ink);font-family:var(--f-display);font-weight:900;font-size:15px;
+    cursor:pointer;display:grid;place-items:center;line-height:1;padding:0;margin-top:1px}
+  .infob:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .infob:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .infob[aria-expanded="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .howto{border-top:1px solid var(--line);background:var(--bg);padding:14px 18px;font-size:13px;color:var(--ink-2);
+    display:flex;flex-direction:column;gap:12px;animation:htin .18s ease}
+  @keyframes htin{from{opacity:.4}to{opacity:1}}
+  .howto .ht-p{color:var(--ink);line-height:1.6}
+  .howto h5{margin:0 0 7px;font-size:12.5px;color:var(--accent-ink);font-family:var(--f-display);font-weight:700}
+  .howto ol{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;line-height:1.6}
+  .howto ol b{color:var(--ink)}
+  .howto .ht-grid{display:grid;grid-template-columns:1fr;gap:9px}
+  .howto .ht-grid > div{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:9px 12px}
+  .howto .ht-grid span{font-weight:700;color:var(--ink);font-size:12.5px;display:block;margin-bottom:3px}
+  .howto .ht-grid p{margin:0;line-height:1.55}
+
+  /* ===== YYIR1 beep player ===== */
+  .playcta{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px;background:var(--surface);
+    border:1px solid var(--line);border-inline-start:4px solid var(--z5);border-radius:12px;padding:12px 16px;
+    cursor:pointer;box-shadow:var(--shadow);text-align:start;font-family:inherit;color:var(--ink)}
+  .playcta:hover{border-color:var(--z5)}
+  .playcta:focus-visible{outline:2px solid var(--z5);outline-offset:2px}
+  .playcta .ic{width:36px;height:36px;border-radius:9px;background:var(--z5-soft);color:var(--z5);
+    display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+  .playcta .tt{font-family:var(--f-display);font-weight:800;font-size:15px;display:block}
+  .playcta .ss{font-size:12px;color:var(--ink-3);margin-top:2px;display:block;line-height:1.4}
+  .playcta .go{margin-inline-start:auto;color:var(--z5);font-weight:700;white-space:nowrap;font-size:13px}
+
+  .overlay{position:fixed;inset:0;z-index:80;background:rgba(6,10,8,.74);backdrop-filter:blur(5px);
+    display:grid;place-items:center;padding:14px}
+  .player{width:100%;max-width:520px;background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.65);overflow:hidden;max-height:94vh;display:flex;flex-direction:column}
+  .player .ph{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line)}
+  .player .ph h3{font-size:16px;font-weight:800}
+  .player .ph .x{margin-inline-start:auto;background:var(--bg);border:1px solid var(--line);border-radius:9px;
+    width:34px;height:34px;cursor:pointer;font-size:15px;color:var(--ink-2)}
+  .player .x:hover{color:var(--z5);border-color:var(--z5)}
+  .player .pb{padding:18px;overflow-y:auto}
+  .phase{border-radius:14px;padding:20px 18px;text-align:center;color:#fff;background:var(--ink-3);transition:background .25s}
+  .phase .lab{font-size:13px;opacity:.92;font-weight:600}
+  .phase .big{font-family:var(--f-display);font-weight:900;font-size:clamp(26px,7vw,36px);margin:2px 0 6px;letter-spacing:.01em}
+  .phase .nx{font-family:var(--f-mono);font-size:13px;opacity:.95}
+  .pmeter{height:8px;background:rgba(255,255,255,.28);border-radius:99px;overflow:hidden;margin-top:14px}
+  .pmeter > i{display:block;height:100%;background:#fff;width:0;border-radius:99px}
+  .pmetrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:14px}
+  .pm{background:var(--surface);padding:11px 6px;text-align:center}
+  .pm .k{font-size:10.5px;color:var(--ink-3)}
+  .pm .v{font-family:var(--f-mono);font-size:21px;font-weight:600;color:var(--ink);margin-top:2px}
+  .pctrls{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .pbtn{flex:1;min-width:92px;border:1px solid var(--line);background:var(--bg);border-radius:11px;padding:12px 8px;
+    font-family:var(--f-display);font-weight:700;font-size:15px;cursor:pointer;color:var(--ink);
+    display:flex;gap:7px;align-items:center;justify-content:center}
+  .pbtn:hover{border-color:var(--line-2)}
+  .pbtn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .pbtn.warn2{color:var(--z5)}
+  .pbtn:disabled{opacity:.45;cursor:default}
+  .prow{display:flex;align-items:center;gap:10px;margin-top:14px}
+  .prow label{font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+  .prow input[type=range]{flex:1;accent-color:var(--accent)}
+  .pnote{font-size:11.5px;color:var(--ink-3);margin-top:14px;line-height:1.65}
+  .plevels{margin-top:14px;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;max-height:150px;overflow-y:auto}
+  .plevels div{display:flex;justify-content:space-between;gap:10px;padding:6px 12px;border-bottom:1px solid var(--line)}
+  .plevels div:last-child{border-bottom:0}
+  .plevels div.cur{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+</style>
+
+<div class="page">
+  <div class="topbar">
+    <div class="wrap row">
+      <div class="brand">
+        <span class="glyph">YY</span>
+        <span>برنامج اليو‑يو<small>Yo‑Yo IR1 · 8 أسابيع</small></span>
+      </div>
+      <span class="spacer"></span>
+      <div class="count" title="الأيام المتبقية على الاختبار">
+        <span class="dot"></span>
+        <span>يتبقّى على الاختبار</span>
+        <b id="countdown">—</b>
+        <span>يوم</span>
+      </div>
+      <button class="tbtn" id="theme" title="تبديل السمة" aria-label="تبديل السمة">◐</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Yo‑Yo Intermittent Recovery · Level 1</div>
+      <h1>برنامج تدريب لاجتياز اختبار اليو‑يو</h1>
+      <p class="lede">ثمانية أسابيع من التمارين المهيكلة تُدخَل في
+        <span class="ltr">Garmin&nbsp;Connect</span>
+        وتُقاد بالاهتزاز على ساعة
+        <span class="ltr">Vivoactive&nbsp;5</span>
+        — بدون لمس الجوال أثناء الجري. الهدف: اجتياز اختبار
+        <span class="ltr">YYIR1</span>
+        يوم <span id="lede-date">٥ نوفمبر ٢٠٢٦</span>.</p>
+
+      <div class="datebar">
+        <span class="lbl"><span class="ic">📅</span> موعد الاختبار</span>
+        <input id="in-date" type="date" min="2026-01-01" max="2028-12-31">
+        <span class="dnote">غيّره إن تأجّل الاختبار — يتحدّث العدّاد ويوم الاختبار تلقائيًا. يُحفظ على جهازك.</span>
+      </div>
+
+      <button class="playcta" id="open-player" type="button">
+        <span class="ic">🔊</span>
+        <span><span class="tt">مشغّل صافرات YYIR1</span>
+          <span class="ss">شغّله يوم الاختبار بدل تطبيق منفصل — نغمات البروتوكول بالمستويات والسرعات الصحيحة</span></span>
+        <span class="go">تشغيل ←</span>
+      </button>
+
+      <div class="offline-bar" id="offlineBar" hidden>
+        <div class="ob-txt">
+          <b id="ob-title">حمّل الصوت للاستخدام دون إنترنت</b>
+          <span id="ob-sub">تسجيل الاختبار ≈٢٨ ميجا. حمّله مرة واحدة على الشبكة ليعمل يوم الاختبار بلا إنترنت.</span>
+        </div>
+        <div class="ob-prog" id="ob-prog" hidden><i id="ob-fill"></i></div>
+        <button class="pill solid" id="ob-btn" type="button">حمّل الآن</button>
+      </div>
+
+      <div class="profile" aria-label="ملفّي">
+        <div class="stat"><div class="k">العمر</div><div class="v">20<span class="u"> سنة</span></div></div>
+        <div class="stat"><div class="k">الوزن</div><div class="v">63<span class="u"> كجم</span></div></div>
+        <div class="stat"><div class="k">نبض الراحة</div><div class="v" id="p-rhr">48<span class="u"> ن/د</span></div></div>
+        <div class="stat"><div class="k">النبض الأقصى</div><div class="v" id="p-hrmax">194<span class="u"> ن/د</span></div></div>
+        <div class="stat"><div class="k">التمارين</div><div class="v">32<span class="u"> تمرين</span></div></div>
+      </div>
+    </header>
+
+    <section class="block" id="zones">
+      <div class="sec-head">
+        <span class="num">01</span><h2>نطاقات النبض</h2>
+        <p>محسوبة بطريقة
+          <span class="ltr">Karvonen</span>
+          (احتياطي النبض)، الأدقّ حين يكون نبض راحتك منخفضًا. غيّر أرقامك بالأسفل بعد أي اختبار ميداني وستتحدّث كل أهداف التمارين تلقائيًا.</p>
+      </div>
+      <div class="zone-panel">
+        <div class="meter">
+          <div class="bars" id="zmeter"></div>
+        </div>
+        <div class="calc">
+          <h3>عدّل أرقامك</h3>
+          <p class="hint">القيم الافتراضية من بياناتك. النبض الأقصى المُقاس (إن أجريت اختبارًا ميدانيًا) يتجاوز التقدير.</p>
+          <div class="field"><label for="in-age"><b>العمر</b> (سنة)</label><input id="in-age" type="number" min="10" max="90" inputmode="numeric"></div>
+          <div class="field"><label for="in-rhr"><b>نبض الراحة</b> (نبضة/دقيقة)</label><input id="in-rhr" type="number" min="30" max="110" inputmode="numeric"></div>
+          <div class="field"><label for="in-max">النبض الأقصى <span class="ltr">HRmax</span> المُقاس — اختياري</label><input id="in-max" type="number" min="140" max="220" inputmode="numeric" placeholder="تقدير Tanaka: 194"></div>
+          <div class="derived"><span class="k">النبض الأقصى المُعتمد</span><span class="v" id="d-hrmax">194</span></div>
+          <p class="note-inline">تقدير
+            <span class="ltr">Tanaka</span>:
+            HRmax = 208 − (0.7 × العمر). للقياس الفعلي: بعد إحماء، اجرِ ٣×٣ دقائق متصاعدة مع دقيقة راحة، وفي آخر ٣٠ ثانية انطلق بأقصى جهد — أعلى رقم يظهر هو نبضك الأقصى.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="program">
+      <div class="sec-head">
+        <span class="num">02</span><h2>البرنامج الأسبوعي</h2>
+        <p>أربعة تمارين كحدّ أقصى أسبوعيًا. اختر الأسبوع لعرض تمارينه. تدرّج تصاعدي، وكل أسبوع رابع استشفاء، والأخير تخفيف
+          <span class="ltr">Taper</span>.
+          علّم كل تمرين بعد إتمامه ليُحفظ تقدّمك على هذا الجهاز.</p>
+      </div>
+      <div class="plan-ctl" id="planCtl"></div>
+      <div class="rail" id="rail" role="tablist" aria-label="الأسابيع"></div>
+      <div class="week-meta" id="weekMeta"></div>
+      <div class="tray" id="tray" hidden></div>
+      <div id="advice"></div>
+      <div class="grid" id="grid"></div>
+
+      <div class="progress">
+        <span class="lab">أتممتَ <b id="pg-count">0</b> من <b>32</b> تمرينًا</span>
+        <div class="bar"><i id="pg-bar" style="width:0%"></i></div>
+        <button class="reset" id="pg-reset">تصفير التقدّم</button>
+      </div>
+
+      <div class="data-bar">
+        <div class="db-txt"><b>بياناتك محفوظة على هذا المتصفّح فقط</b>
+          <span>تنظيف بيانات الموقع أو تبديل الجهاز يمسح تقدّمك. صدّر نسخة احتياطية بين حين وآخر.</span></div>
+        <div class="db-acts">
+          <button class="pill" id="db-export" type="button">⭳ نسخة احتياطية</button>
+          <button class="pill" id="db-import" type="button">⭱ استيراد</button>
+          <button class="pill" id="db-ics" type="button">📅 صدّر التقويم</button>
+          <input id="db-file" type="file" accept="application/json,.json" hidden>
+        </div>
+        <div class="db-msg" id="db-msg" hidden></div>
+      </div>
+    </section>
+
+    <section class="block" id="results">
+      <div class="sec-head">
+        <span class="num">03</span><h2>نتائجك</h2>
+        <p>في البرنامج ثلاثة اختبارات: تجريبيّان (نهاية الأسبوع ٤ والأسبوع ٧) ثم الاختبار الحقيقي. سجّل المسافة بعد كل واحد
+          — هي نتيجتك الرسمية، ومنها يُقدَّر
+          <span class="ltr">VO2max</span>
+          بمعادلة
+          <span class="ltr">Bangsbo</span>.</p>
+      </div>
+      <div id="resultsPanel"></div>
+    </section>
+
+    <section class="block" id="how">
+      <div class="sec-head">
+        <span class="num">04</span><h2>الإدخال والمزامنة والتشغيل</h2>
+        <p>كل ما تحتاجه لنقل التمارين إلى ساعتك وتشغيلها بالاهتزاز وحده.</p>
+      </div>
+      <div class="guides">
+
+        <details class="g" open>
+          <summary><span class="ic">↧</span> إدخال التمارين في Garmin Connect وجدولتها<span class="arrow">▾</span></summary>
+          <div class="g-body">
+            <ol>
+              <li>افتح
+                <span class="ltr">connect.garmin.com</span>
+                ← <span class="ltr">Training &amp; Planning</span>
+                ← <span class="ltr">Workouts</span>
+                ← <span class="ltr">Create a Workout</span>.</li>
+              <li>اختر نوع النشاط
+                <span class="ltr">Run</span>.</li>
+              <li>أضف الخطوات واحدة تلو الأخرى، واضبط لكل خطوة
+                <span class="ltr">Duration</span>
+                (زمن / <span class="ltr">Lap Button</span>)
+                و<span class="ltr">Target</span>
+                (نبض مخصّص أو <span class="ltr">No Target</span>).
+                للفترات استخدم زرّ
+                <span class="ltr">Repeat</span>
+                وحدّد عدد الجولات.</li>
+              <li>احفظ التمرين باسمه الموحّد مثل
+                <span class="ltr">W3-D1-Intervals</span>
+                لسهولة الفرز (منسوخ جاهز من زر «نسخ الخطوات» في كل بطاقة).</li>
+              <li><strong>جدول التمرين على التقويم</strong> عبر
+                <span class="ltr">Training Calendar</span>
+                في يومه — الجدولة هي ما يجعله يُزامَن تلقائيًا ويظهر على الساعة في
+                <span class="ltr">Training &gt; Workouts</span>.</li>
+              <li>تحقّق من وصول تمرين الغد للساعة قبل أول تمرين: افتح
+                <span class="ltr">Training &gt; Workouts</span>
+                على الساعة نفسها.</li>
+            </ol>
+            <div class="warn"><b>نصيحة:</b> أدخِل وجدوِل أسبوعًا واحدًا فقط في كل مرة. لا تُغرق الساعة بالبرنامج كله دفعة واحدة — التخزين محدود، والجدولة الأسبوعية أوضح.</div>
+          </div>
+        </details>
+
+        <details class="g">
+          <summary><span class="ic">⚙</span> إعدادات الساعة قبل أول تمرين<span class="arrow">▾</span></summary>
+          <div class="g-body">
+            <ul>
+              <li><strong>الاهتزاز وسيلتك الوحيدة:</strong> فعّله من
+                <span class="ltr">Settings &gt; System &gt; Vibration</span>
+                واجعله قويًا. هو ما ينبّهك عند كل انتقال بين الخطوات.</li>
+              <li><strong>أوقف
+                <span class="ltr">Auto Lap</span></strong>
+                من ملف نشاط الجري (<span class="ltr">Activity Settings &gt; Auto Lap &gt; Off</span>)
+                حتى لا تتداخل لفّاته التلقائية مع خطوات التمرين وخصوصًا خطوات
+                <span class="ltr">Lap Button</span>
+                في يوم الاختبار.</li>
+              <li><strong>تنبيهات الهدف:</strong> اجعلها اهتزازًا لا صوتًا فقط، حتى تشعر بها في الملعب.</li>
+              <li><strong>سعة التخزين:</strong> ساعة
+                <span class="ltr">Vivoactive 5</span>
+                تحتفظ بعدد محدود من التمارين المُنزّلة؛ أبقِ تمارين الأسبوع الجاري فقط واحذف القديم لتفادي الازدحام.</li>
+            </ul>
+            <div class="warn"><b>لماذا الفترات القصيرة بلا هدف نبض؟</b> في ٣٠ أو ٤٥ ثانية لا يصل نبضك للنطاق في الوقت المناسب، فتظلّ الساعة تهتزّ «تحت الهدف» وتختلط مع اهتزاز الانتقال. لذلك الخطوات القصيرة على
+              <span class="ltr">No Target</span>،
+              فيكون الاهتزاز الوحيد هو انتقال الخطوة، وأنت تتحكّم بالجهد بإحساسك.</div>
+          </div>
+        </details>
+
+        <details class="g">
+          <summary><span class="ic">{ }</span> توليد ملفات FIT تلقائيًا (اختياري، للمتقدّمين)<span class="arrow">▾</span></summary>
+          <div class="g-body">
+            <p>إدخال ٣٢ تمرينًا يدويًا مُرهق. هذا سكربت
+              <span class="ltr">Node.js</span>
+              يستخدم مكتبة
+              <span class="ltr">@garmin/fitsdk</span>
+              الرسمية لتوليد ملف
+              <span class="ltr">.FIT</span>
+              لكل تمرين دفعة واحدة.</p>
+            <div class="codehead"><span class="fn">// setup: npm i @garmin/fitsdk</span>
+              <button class="copy" data-copy="fit">⧉ نسخ السكربت</button>
+              <button class="copy" id="fit-dl">⭳ نزّل الملف</button></div>
+            <pre><code id="fitcode"></code></pre>
+            <div class="warn"><b>تنبيه مهم:</b> خيار
+              <span class="ltr">Import</span>
+              في
+              <span class="ltr">Garmin Connect</span>
+              يقبل الأنشطة المكتملة فقط <b>لا</b> التمارين المهيكلة. الطريقة الوحيدة لتحميل تمرين
+              <span class="ltr">FIT</span>
+              هي نسخه يدويًا إلى مجلد
+              <span class="ltr">/GARMIN/NewFiles</span>
+              على ذاكرة الساعة عبر
+              <span class="ltr">USB</span>،
+              ثم ينتقل تلقائيًا إلى مجلد
+              <span class="ltr">Workouts</span>
+              بعد إعادة تشغيل الساعة.</div>
+            <div class="warn"><b>تحذير الاتصال:</b> ساعات
+              <span class="ltr">Garmin</span>
+              الداعمة للموسيقى (ومنها
+              <span class="ltr">Vivoactive 5</span>)
+              تُعرَّف كأجهزة
+              <span class="ltr">MTP</span>
+              لا كأقراص تخزين. على
+              <span class="ltr">macOS</span>
+              تحتاج أداة وسيطة مثل
+              <span class="ltr">Android File Transfer</span>
+              للوصول للملفات. على
+              <span class="ltr">Windows</span>
+              تظهر الساعة كقرص عادي في مستكشف الملفات مباشرة.</div>
+            <h4>يدوي أم FIT — أيّهما لـ ٣٢ تمرينًا؟</h4>
+            <table class="cmp">
+              <thead><tr><th>المعيار</th><th>إدخال يدوي</th><th>توليد FIT</th></tr></thead>
+              <tbody>
+                <tr><td>وقت الإعداد</td><td>~٣–٤ ساعات لكل التمارين</td><td>دقائق بعد كتابة السكربت</td></tr>
+                <tr><td>الجدولة على التقويم والمزامنة اللاسلكية</td><td class="rec">تلقائية وسلسة</td><td>يدوية عبر الكابل، بلا تقويم</td></tr>
+                <tr><td>احتمال الخطأ</td><td>عالٍ مع التكرار</td><td>منخفض بعد ضبط السكربت</td></tr>
+                <tr><td>التعديل السريع</td><td>سهل من التطبيق</td><td>يتطلب إعادة توليد ونسخ</td></tr>
+              </tbody>
+            </table>
+            <p><strong>التوصية:</strong> لـ ٣٢ تمرينًا موزّعة أسبوعًا بأسبوع، الإدخال اليدوي عبر
+              <span class="ltr">Garmin Connect</span>
+              هو الأفضل — لأنه يمنحك الجدولة على التقويم والمزامنة اللاسلكية التلقائية، وأنت تُدخل ٤ تمارين فقط كل أسبوع (لا ٣٢ دفعة واحدة). أبقِ مسار
+              <span class="ltr">FIT</span>
+              للطوارئ فقط.</p>
+          </div>
+        </details>
+
+        <details class="g">
+          <summary><span class="ic">i</span> المنهجية والمبادئ الملزمة<span class="arrow">▾</span></summary>
+          <div class="g-body">
+            <ul>
+              <li><strong>التدرّج:</strong> زيادة الحجم ٨–١٢٪ أسبوعيًا في أسابيع البناء.</li>
+              <li><strong>الاستشفاء:</strong> كل أسبوع رابع (٤) خفض في الحجم ٣٠–٤٠٪ مع الحفاظ على الشدة، وينتهي باختبار قياس.</li>
+              <li><strong>التخفيف
+                <span class="ltr">Taper</span>:</strong>
+                الأسبوع الثامن خفض ٥٠–٦٠٪، وآخر تمرين شديد قبل ٧٢ ساعة على الأقل من الاختبار.</li>
+              <li><strong>أنواع التمارين:</strong> محاكاة يو‑يو (٤٥/٧٥)، فترات قصيرة شديدة (٣٠/٣٠ و١٥/١٥ لـ
+                <span class="ltr">VO2max</span>)،
+                تمبو عند العتبة، جري هادئ للقاعدة، وسبرنتات متكرّرة
+                <span class="ltr">RSA</span>
+                تخصّصية للحكّام.</li>
+              <li><strong>القياس:</strong> اختبار
+                <span class="ltr">YYIR1</span>
+                كامل نهاية الأسبوعين ٤ و٧ لقياس التقدّم.</li>
+            </ul>
+            <div class="warn"><b>عند وقوع مباراة تحكيم:</b> احسبها بديلًا عن يوم الشدة العالية وألغِ ذلك التمرين (لا تُضِفه). لا تجعل تمرينًا شديدًا في اليوم السابق أو التالي مباشرة لمباراة مهمّة. الجري الهادئ يبقى دائمًا لأنه استشفائي.</div>
+            <p style="margin-top:14px">الأرقام تقديرية بصيغة عامة للنبض الأقصى؛ حدّثها من لوحة «نطاقات النبض» بعد أي اختبار ميداني وستُعاد المعايرة تلقائيًا عبر البرنامج كله.</p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <footer>
+      <p class="disc">هذا البرنامج أداة تنظيم تدريبي وليس استشارة طبية. توقّف واستشر مختصًا عند أي ألم صدري أو دوار أو ضيق تنفّس غير معتاد. نطاقات النبض تقديرية — عايرها ميدانيًا. يُحفظ تقدّمك وأرقامك في متصفّح هذا الجهاز فقط.</p>
+    </footer>
+  </div>
+
+  <div class="overlay" id="yoyo-overlay" hidden role="dialog" aria-modal="true" aria-label="مشغّل صافرات اليو‑يو">
+    <div class="player">
+      <div class="ph"><span aria-hidden="true">🔊</span><h3>صافرات YYIR1</h3>
+        <button class="x" id="yy-close" type="button" aria-label="إغلاق">✕</button></div>
+      <div class="pb">
+        <div class="phase" id="yy-phase">
+          <div class="lab" id="yy-plab">جاهز</div>
+          <div class="big" id="yy-pbig">اضغط ابدأ</div>
+          <div class="nx" id="yy-pnx">ارفع صوت الجوال إلى أقصاه وضعه جانب الملعب</div>
+          <div class="pmeter"><i id="yy-pfill"></i></div>
+        </div>
+        <div class="pmetrics">
+          <div class="pm"><div class="k">المستوى</div><div class="v" id="yy-level">—</div></div>
+          <div class="pm"><div class="k">السرعة km/h</div><div class="v" id="yy-speed">—</div></div>
+          <div class="pm"><div class="k">الشوط</div><div class="v" id="yy-shut">0</div></div>
+          <div class="pm"><div class="k">المسافة m</div><div class="v" id="yy-dist">0</div></div>
+        </div>
+        <div class="pctrls">
+          <button class="pbtn primary" id="yy-start" type="button">▶ ابدأ</button>
+          <button class="pbtn" id="yy-pause" type="button" disabled>⏸ إيقاف</button>
+          <button class="pbtn warn2" id="yy-reset" type="button">↺ تصفير</button>
+        </div>
+        <div class="prow" id="yy-saverow" hidden style="justify-content:space-between">
+          <span id="yy-savelab" style="font-size:12.5px;color:var(--ink-2)">توقّفت هنا؟ احفظ المسافة كنتيجتك.</span>
+          <button class="pbtn primary" id="yy-save" type="button" style="flex:0 0 auto;min-width:0;padding:9px 14px;font-size:13px">💾 احفظ <span id="yy-savedist">0</span> م</button>
+        </div>
+        <div class="prow"><label for="yy-vol">الصوت</label>
+          <input id="yy-vol" type="range" min="0" max="100" value="80">
+          <button class="pbtn" id="yy-test" type="button" style="flex:0 0 auto;min-width:0;padding:9px 12px;font-size:13px">⏭ تخطّي المقدّمة</button></div>
+        <p class="pnote">هذا التسجيل الصوتي الرسمي: تسمع التعليمات ثم صافرات الاختبار. الجولة = جري ذهاب‑إياب ٢٠م على إيقاع الصافرة، يليها ≈٥ ثوانٍ استشفاء خفيف. الشاشة تتزامن مع الصوت وتعرض المستوى والسرعة والمسافة لحظيًا. الصافرة تعني «كن عند الخط». عند توقّفك سجّل «المسافة» الظاهرة — هي نتيجتك.<br>ضع الجوال جانب الملعب بصوتٍ مرتفع، ولا تحتاج لمسه بعد الضغط على ابدأ.</p>
+        <div class="plevels" id="yy-levels"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var LS_KEY="yoyo_ir1_v1";
+  var DEFAULT_DATE="2026-11-05"; // 5 Nov 2026 — قابل للتعديل من الواجهة
+
+  /* ---------- Program data ---------- */
+  function wu(d){return{t:"Warm Up",d:d,tg:"wu"};}
+  function cd(d){return{t:"Cool Down",d:d,tg:"cd"};}
+  function cdl(d){return{t:"Cool Down",d:d,tg:"cd_low"};}
+  function run(d,tg){return{t:"Run",d:d,tg:tg};}
+  function rep(reps,sub){return{t:"Repeat",reps:reps,sub:sub};}
+  function rec(d){return{t:"Recover",d:d,tg:"none"};}
+  function rn(d){return{t:"Run",d:d,tg:"none"};}
+
+  function testWkt(id){
+    return {id:id,title:id,activity:"Run",zone:"test",steps:[
+      wu("12:00"),
+      {t:"Rest",d:"Lap Button",tg:"lap",hint:"عُد للجوال، شغّل صافرات YYIR1، ارجع لخط البداية، ثم اضغط Lap للبدء."},
+      {t:"Run",d:"Lap Button",tg:"lap",hint:"الاختبار كامل يقوده صوت الجوال — اضغط Lap عند التوقّف النهائي."},
+      cd("10:00")
+    ], notes:"البروتوكول يقوده الجوال بالصوت والساعة تسجّل فقط. لا هدف نبض هنا — Lap Button مقصود. سجّل المستوى/المسافة التي وصلتها لمقارنتها لاحقًا."};
+  }
+  function ex(d,hint){return{t:"Exercise",d:d,tg:"none",hint:hint};}
+  /* وقاية من الإصابة: البرنامج فيه سبرنتات ومحاكاة يو‑يو تحمّل الأوتار الخلفية
+     والسمانة بشدّة. النورديك أقوى تمرين مثبت لخفض شدّ الأوتار الخلفية. */
+  function strWkt(id){
+    return {id:id,title:id,activity:"Strength",zone:"str",strength:true,steps:[
+      wu("05:00"),
+      rep(3,[ex("00:40","نورديك للأوتار الخلفية — ٦ تكرارات، النزول بطيء ٣–٤ ثوانٍ وقاوم حتى النهاية."),
+             {t:"Rest",d:"01:00",tg:"none"}]),
+      rep(3,[ex("00:45","رفع السمانة على ساق واحدة — ١٢ تكرارًا لكل ساق، ارتفاع كامل ونزول محكوم."),
+             {t:"Rest",d:"00:45",tg:"none"}]),
+      rep(2,[ex("00:40","بلانك جانبي — ٢٠ ثانية لكل جهة."),
+             {t:"Rest",d:"00:30",tg:"none"}]),
+      cdl("03:00")
+    ], notes:"تقوية وقائية ≈١٥ دقيقة، مرّتين أسبوعيًا. النورديك هو الأهم — يخفّض شدّ الأوتار الخلفية بشكل معتبر عند من يجري سبرنتات متكررة. نفّذها بعد الجري أو في يوم مستقل، ولا تضعها قبل ٢٤ ساعة من تمرين شدّة."};
+  }
+  function rsaWkt(id){
+    return {id:id,title:id,activity:"Run",zone:"z5",optional:true,steps:[
+      wu("06:00"),
+      rep(6,[ {t:"Run",d:"00:08",tg:"none",hint:"سبرنت ~٤٠ متر بأقصى سرعة."}, {t:"Rest",d:"00:20",tg:"none"} ]),
+      cdl("04:00")
+    ], notes:"سبرنتات متكرّرة (RSA) تخصّصية للحكّام. يمكن فصلها في يوم مستقل إن كنت مرتاحًا. نفّذها وأنت غير مُنهك للحصول على أقصى فائدة."};
+  }
+
+  var WEEKS=[
+    {n:1,phase:"تأسيس",key:"base",desc:"أسبوع تعويد على الجري المهيكل. الحجم هادئ عمدًا لنبني عليه بأمان.",days:[
+      {name:"الأحد",focus:"فترات قصيرة شديدة ٣٠/٣٠ — قدرة لاهوائية",zone:"z5",workouts:[{id:"W1-D1-Intervals",title:"W1-D1-Intervals",activity:"Run",steps:[wu("10:00"),rep(8,[rn("00:30"),rec("00:30")]),cd("08:00")],notes:"٨ انطلاقات قوية (جهد ٩/١٠)، بينها ٣٠ ثانية جري خفيف. الاهتزاز يخبرك متى تنطلق ومتى تهدأ."}]},
+      {name:"الثلاثاء",focus:"تمبو مستمر — العتبة اللاكتاتية",zone:"z3",workouts:[{id:"W1-D2-Tempo",title:"W1-D2-Tempo",activity:"Run",steps:[wu("10:00"),run("15:00","z3"),cd("08:00")],notes:"جري متواصل عند العتبة: تستطيع نطق جملة قصيرة فقط. الساعة تنبّهك لو خرجت عن النطاق."}]},
+      {name:"الخميس",focus:"محاكاة اليو‑يو ٤٥/٧٥",zone:"z4",workouts:[{id:"W1-D3-YoYo",title:"W1-D3-YoYo",activity:"Run",steps:[wu("10:00"),rep(6,[rn("00:45"),rec("01:15")]),cd("08:00")],notes:"أقرب تمرين لبروتوكول الاختبار: ٤٥ ثانية جري سريع ثابت + ٧٥ ثانية استشفاء."}]},
+      {name:"السبت",focus:"جري هادئ طويل — قاعدة هوائية",zone:"z2",workouts:[{id:"W1-D4-EasyLong",title:"W1-D4-EasyLong",activity:"Run",steps:[wu("05:00"),run("30:00","z2"),cdl("05:00")],notes:"جري خفيف تتحدّث فيه بجُمل كاملة. لو تجاوز النبض المنطقة، امشِ حتى يهبط. لا تحوّله لسباق."}]}
+    ]},
+    {n:2,phase:"بناء",key:"build",desc:"زيادة الحجم ~١٠٪ عن الأسبوع الأول: جولات أكثر وزمن تمبو أطول.",days:[
+      {name:"الأحد",focus:"فترات ٣٠/٣٠ — قدرة لاهوائية",zone:"z5",workouts:[{id:"W2-D1-Intervals",title:"W2-D1-Intervals",activity:"Run",steps:[wu("10:00"),rep(10,[rn("00:30"),rec("00:30")]),cd("08:00")],notes:"١٠ انطلاقات بنفس جهد الأسبوع الأول. حافظ على ثبات القوة من الأولى للأخيرة."}]},
+      {name:"الثلاثاء",focus:"تمبو مستمر — العتبة",zone:"z3",workouts:[{id:"W2-D2-Tempo",title:"W2-D2-Tempo",activity:"Run",steps:[wu("10:00"),run("18:00","z3"),cd("08:00")],notes:"١٨ دقيقة متواصلة عند العتبة."}]},
+      {name:"الخميس",focus:"محاكاة اليو‑يو ٤٥/٧٥",zone:"z4",workouts:[{id:"W2-D3-YoYo",title:"W2-D3-YoYo",activity:"Run",steps:[wu("10:00"),rep(8,[rn("00:45"),rec("01:15")]),cd("08:00")],notes:"٨ جولات محاكاة. راقب أن يكون إيقاعك في الجولة الأخيرة كالأولى."}]},
+      {name:"السبت",focus:"جري هادئ طويل — قاعدة",zone:"z2",workouts:[{id:"W2-D4-EasyLong",title:"W2-D4-EasyLong",activity:"Run",steps:[wu("05:00"),run("35:00","z2"),cdl("05:00")],notes:"٣٥ دقيقة هادئة. الهدف بناء القاعدة لا الإرهاق."}]}
+    ]},
+    {n:3,phase:"بناء",key:"build",desc:"ذروة كتلة البناء الأولى قبل أسبوع الاستشفاء: أعلى حجم حتى الآن.",days:[
+      {name:"الأحد",focus:"فترات ٣٠/٣٠ — قدرة لاهوائية",zone:"z5",workouts:[{id:"W3-D1-Intervals",title:"W3-D1-Intervals",activity:"Run",steps:[wu("10:00"),rep(12,[rn("00:30"),rec("00:30")]),cd("08:00")],notes:"١٢ انطلاقة. لو شعرت بهبوط القوة في آخر جولتين فذلك حدّك اليوم — سجّله."}]},
+      {name:"الثلاثاء",focus:"تمبو مستمر — العتبة",zone:"z3",workouts:[{id:"W3-D2-Tempo",title:"W3-D2-Tempo",activity:"Run",steps:[wu("10:00"),run("20:00","z3"),cd("08:00")],notes:"٢٠ دقيقة عتبة متواصلة."}]},
+      {name:"الخميس",focus:"محاكاة اليو‑يو ٤٥/٧٥",zone:"z4",workouts:[{id:"W3-D3-YoYo",title:"W3-D3-YoYo",activity:"Run",steps:[wu("10:00"),rep(10,[rn("00:45"),rec("01:15")]),cd("08:00")],notes:"١٠ جولات — أقرب ما تكون لحجم الاختبار."}]},
+      {name:"السبت",focus:"جري هادئ طويل — قاعدة",zone:"z2",workouts:[{id:"W3-D4-EasyLong",title:"W3-D4-EasyLong",activity:"Run",steps:[wu("05:00"),run("40:00","z2"),cdl("05:00")],notes:"٤٠ دقيقة. أطول جري هادئ في الكتلة الأولى."}]}
+    ]},
+    {n:4,phase:"استشفاء",key:"recovery",desc:"خفض الحجم ~٣٥٪ مع الحفاظ على الحدّة، وينتهي الأسبوع باختبار القياس الأول لتعرف أين أنت.",days:[
+      {name:"الأحد",focus:"شحذ خفيف ٣٠/٣٠",zone:"z5",workouts:[{id:"W4-D1-Sharp",title:"W4-D1-Sharp",activity:"Run",steps:[wu("10:00"),rep(6,[rn("00:30"),rec("00:45")]),cd("06:00")],notes:"٦ انطلاقات حادّة فقط مع راحة أطول. تُبقي الحدّة دون إرهاق."}]},
+      {name:"الثلاثاء",focus:"جري هادئ استشفائي",zone:"z2",workouts:[{id:"W4-D2-Easy",title:"W4-D2-Easy",activity:"Run",steps:[wu("05:00"),run("25:00","z2"),cdl("05:00")],notes:"جري خفيف جدًا. الجسم يتكيّف أثناء الاستشفاء لا أثناء الإجهاد."}]},
+      {name:"الخميس",focus:"راحة تامة",zone:"z1",rest:true,note:"راحة أو مشي خفيف وإطالات فقط. جهّز جسمك ليوم الاختبار السبت."},
+      {name:"السبت",focus:"اختبار YYIR1 التجريبي #١",zone:"test",workouts:[testWkt("W4-D4-Test")]}
+    ]},
+    {n:5,phase:"بناء",key:"build",desc:"كتلة بناء جديدة أعلى شدّة: نُدخل فترات ١٥/١٥ لتطوير VO2max وسبرنتات RSA التخصّصية.",days:[
+      {name:"الأحد",focus:"فترات ١٥/١٥ — VO2max",zone:"z5",workouts:[{id:"W5-D1-VO2",title:"W5-D1-VO2",activity:"Run",steps:[wu("10:00"),rep(12,[rn("00:15"),rec("00:15")]),cd("08:00")],notes:"١٢ نبضة سريعة ١٥ ثانية قوية جدًا + ١٥ ثانية جري خفيف. تطوّر السقف الهوائي الأقصى."}]},
+      {name:"الثلاثاء",focus:"تمبو مستمر — العتبة",zone:"z3",workouts:[{id:"W5-D2-Tempo",title:"W5-D2-Tempo",activity:"Run",steps:[wu("10:00"),run("22:00","z3"),cd("08:00")],notes:"٢٢ دقيقة عتبة."}]},
+      {name:"الخميس",focus:"محاكاة اليو‑يو ٤٥/٧٥",zone:"z4",workouts:[{id:"W5-D3-YoYo",title:"W5-D3-YoYo",activity:"Run",steps:[wu("10:00"),rep(12,[rn("00:45"),rec("01:15")]),cd("08:00")],notes:"١٢ جولة — تجاوزنا حجم اختبار الأسبوع الرابع."}]},
+      {name:"السبت",focus:"جري هادئ + سبرنتات RSA",zone:"z2",workouts:[
+        {id:"W5-D4-EasyLong",title:"W5-D4-EasyLong",activity:"Run",steps:[wu("05:00"),run("45:00","z2"),cdl("05:00")],notes:"٤٥ دقيقة هادئة لبناء القاعدة."},
+        rsaWkt("W5-D4-RSA")
+      ]}
+    ]},
+    {n:6,phase:"بناء",key:"build",desc:"ذروة الحجم في البرنامج كله. أعلى ضغط قبل مرحلة الشحذ والاختبار.",days:[
+      {name:"الأحد",focus:"فترات ١٥/١٥ ×٢ مجموعة — VO2max",zone:"z5",workouts:[{id:"W6-D1-VO2",title:"W6-D1-VO2",activity:"Run",steps:[wu("10:00"),rep(8,[rn("00:15"),rec("00:15")]),rec("02:00"),rep(8,[rn("00:15"),rec("00:15")]),cd("08:00")],notes:"مجموعتان × ٨ نبضات، بينهما دقيقتا استشفاء. حجم VO2max الأعلى."}]},
+      {name:"الثلاثاء",focus:"تمبو مستمر — العتبة",zone:"z3",workouts:[{id:"W6-D2-Tempo",title:"W6-D2-Tempo",activity:"Run",steps:[wu("10:00"),run("28:00","z3"),cd("08:00")],notes:"٢٨ دقيقة عتبة — أطول تمبو في البرنامج."}]},
+      {name:"الخميس",focus:"محاكاة اليو‑يو ٤٠/٦٠ (استشفاء أقصر)",zone:"z4",workouts:[{id:"W6-D3-YoYo",title:"W6-D3-YoYo",activity:"Run",steps:[wu("10:00"),rep(14,[rn("00:40"),rec("01:00")]),cd("08:00")],notes:"استشفاء أقصر (٦٠ ثانية) = أقرب لضغط الاختبار الحقيقي. ١٤ جولة."}]},
+      {name:"السبت",focus:"جري هادئ طويل + سبرنتات RSA",zone:"z2",workouts:[
+        {id:"W6-D4-EasyLong",title:"W6-D4-EasyLong",activity:"Run",steps:[wu("05:00"),run("55:00","z2"),cdl("05:00")],notes:"٥٥ دقيقة — أطول جري قاعدي."},
+        rsaWkt("W6-D4-RSA")
+      ]}
+    ]},
+    {n:7,phase:"بناء",key:"build",desc:"شحذ الحدّة مع خفض بسيط في الحجم، وينتهي الأسبوع باختبار القياس الثاني لقياس قفزتك.",days:[
+      {name:"الأحد",focus:"فترات ١٥/١٥ حادّة — VO2max",zone:"z5",workouts:[{id:"W7-D1-VO2",title:"W7-D1-VO2",activity:"Run",steps:[wu("10:00"),rep(12,[rn("00:15"),rec("00:15")]),cd("08:00")],notes:"١٢ نبضة حادّة. حجم أقل من الأسبوع السادس لتصل للاختبار منتعشًا."}]},
+      {name:"الثلاثاء",focus:"تمبو مستمر — العتبة",zone:"z3",workouts:[{id:"W7-D2-Tempo",title:"W7-D2-Tempo",activity:"Run",steps:[wu("10:00"),run("20:00","z3"),cd("08:00")],notes:"٢٠ دقيقة عتبة معتدلة."}]},
+      {name:"الخميس",focus:"هرولة خفيفة تحضيرية",zone:"z2",workouts:[{id:"W7-D3-Easy",title:"W7-D3-Easy",activity:"Run",steps:[wu("05:00"),run("20:00","z2"),cdl("05:00")],notes:"خفيفة جدًا. تُبقي الساقين نشطتين قبل اختبار السبت."}]},
+      {name:"السبت",focus:"اختبار YYIR1 التجريبي #٢",zone:"test",workouts:[testWkt("W7-D4-Test")]}
+    ]},
+    {n:8,phase:"تخفيف",key:"taper",desc:"تخفيف Taper بخفض ٥٠–٦٠٪. آخر تمرين شديد قبل ≥٧٢ ساعة من الاختبار، والوصول لـ ٥ نوفمبر بذروة نشاط.",days:[
+      {name:"الأحد",focus:"شحذ أخير ٦×٣٠/٣٠ — آخر تمرين شديد",zone:"z5",workouts:[{id:"W8-D1-Sharp",title:"W8-D1-Sharp",activity:"Run",steps:[wu("10:00"),rep(6,[rn("00:30"),rec("00:45")]),cd("06:00")],notes:"آخر جرعة شدّة. ضعها قبل ≥٧٢ ساعة من موعد الاختبار. حادّة لكن قصيرة."}]},
+      {name:"الثلاثاء",focus:"جري هادئ قصير",zone:"z2",workouts:[{id:"W8-D2-Easy",title:"W8-D2-Easy",activity:"Run",steps:[wu("05:00"),run("20:00","z2"),cdl("05:00")],notes:"٢٠ دقيقة خفيفة تُبقي التدفّق دون أي إجهاد."}]},
+      {name:"الخميس",focus:"هرولة تنشيطية قصيرة (اليوم السابق للاختبار)",zone:"z2",workouts:[{id:"W8-D3-Shakeout",title:"W8-D3-Shakeout",activity:"Run",steps:[wu("04:00"),run("12:00","z2"),cdl("04:00")],notes:"تنشيط خفيف جدًا قبل الاختبار بيوم. لا شدّة إطلاقًا — فقط لإيقاظ الجسم."}]},
+      {name:"يوم الاختبار",realTest:true,focus:"يوم الاختبار الحقيقي — YYIR1",zone:"test",workouts:[testWkt("W8-D5-RealTest")]}
+    ]}
+  ];
+
+  /* توزيع تمارين التقوية: على اليومين الشديدين (الأحد والخميس) لتبقى أيام
+     الاستشفاء خفيفة فعلًا. الأسبوع ٤ (استشفاء) جلسة واحدة، الأسبوع ٧ واحدة
+     مبكّرة قبل اختبار السبت، والأسبوع ٨ (تخفيف) بلا تقوية إطلاقًا. */
+  var STRENGTH_PLAN={1:["الأحد","الخميس"],2:["الأحد","الخميس"],3:["الأحد","الخميس"],
+                     4:["الأحد"],5:["الأحد","الخميس"],6:["الأحد","الخميس"],7:["الأحد"],8:[]};
+  WEEKS.forEach(function(wk){
+    (STRENGTH_PLAN[wk.n]||[]).forEach(function(nm){
+      var i=-1;
+      wk.days.forEach(function(d,k){if(d.name===nm&&!d.rest&&d.workouts)i=k;});
+      if(i<0)return;
+      wk.days[i].workouts.push(strWkt("W"+wk.n+"-D"+(i+1)+"-Strength"));
+    });
+  });
+
+  var ZONE_LABEL={z1:"استشفاء",z2:"هوائي",z3:"عتبة",z4:"لاهوائي",z5:"قصوى",test:"اختبار",str:"قوة"};
+  var ZONE_VAR={z1:"--z1",z2:"--z2",z3:"--z3",z4:"--z4",z5:"--z5",test:"--test",str:"--z1"};
+  var ZONE_SOFT={z1:"--z1-soft",z2:"--z2-soft",z3:"--z3-soft",z4:"--z4-soft",z5:"--z5-soft",test:"--test-soft",str:"--z1-soft"};
+
+  /* ---------- State ---------- */
+  /* shift = عدد أيام تأجيل بداية البرنامج عن بدايته التلقائية (سالب = تقديم).
+     postponed = التمارين المؤجّلة {id:1} — دَيْن تحمله معك حتى تؤدّيه أو تسقطه. */
+  var state={age:20,rhr:48,max:null,week:null,done:{},testDate:DEFAULT_DATE,weekAuto:true,
+             shift:0,postponed:{},moved:{},results:{},rpe:{}};
+  function applyState(s){
+    if(!s||typeof s!=="object")return false;
+    if(s.age)state.age=+s.age; if(s.rhr)state.rhr=+s.rhr; if(s.max)state.max=+s.max;
+    if(s.week)state.week=+s.week; if(s.done)state.done=s.done;
+    if(s.weekAuto===false)state.weekAuto=false; else if(s.weekAuto===true)state.weekAuto=true;
+    if(typeof s.shift==="number"&&isFinite(s.shift))state.shift=Math.max(-56,Math.min(120,Math.round(s.shift)));
+    if(s.postponed)state.postponed=s.postponed;
+    if(s.moved)state.moved=s.moved;
+    if(s.results)state.results=s.results;
+    if(s.rpe)state.rpe=s.rpe;
+    if(s.testDate&&/^\d{4}-\d{2}-\d{2}$/.test(s.testDate))state.testDate=s.testDate;
+    return true;
+  }
+  try{var raw=localStorage.getItem(LS_KEY);if(raw)applyState(JSON.parse(raw));}catch(e){}
+
+  /* ---------- Dates ---------- */
+  var DAY=86400000;
+  function dOnly(d){var x=new Date(d);x.setHours(0,0,0,0);return x;}
+  function addDays(d,n){var x=dOnly(d);x.setDate(x.getDate()+n);return x;}
+  function todayD(){return dOnly(new Date());}
+  function daysBetween(a,b){return Math.round((dOnly(b)-dOnly(a))/DAY);}
+  function toISO(d){d=dOnly(d);var m=d.getMonth()+1,dd=d.getDate();
+    return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(dd<10?"0":"")+dd;}
+  function testDate(){var d=new Date(state.testDate+"T00:00:00");return isNaN(d)?new Date(DEFAULT_DATE+"T00:00:00"):d;}
+  /* البداية التلقائية: أحدُ الأسبوع الذي يقع فيه الاختبار، ناقص ٧ أسابيع ⇒ يوم الاختبار داخل الأسبوع الثامن. */
+  function autoStart(){var t=dOnly(testDate());return addDays(t,-t.getDay()-49);}
+  function startDate(){return addDays(autoStart(),state.shift||0);}
+  /* أوفست كل يوم داخل أسبوعه، بالنسبة لأحد ذلك الأسبوع. */
+  var DAY_OFF={"الأحد":0,"الاثنين":1,"الثلاثاء":2,"الأربعاء":3,"الخميس":4,"الجمعة":5,"السبت":6};
+  function dayDate(weekN,day){
+    if(day.realTest)return dOnly(testDate());
+    var off=DAY_OFF[day.name];if(off==null)return null;
+    return addDays(startDate(),(weekN-1)*7+off);
+  }
+  /* التاريخ الفعلي لتمرين: تاريخه المنقول إن نُقل، وإلا تاريخ يومه في الجدول. */
+  function effDate(weekN,day,w){
+    if(w&&state.moved[w.id]){
+      var d=new Date(state.moved[w.id]+"T00:00:00");
+      if(!isNaN(d))return dOnly(d);
+    }
+    return dayDate(weekN,day);
+  }
+  /* في أي أسبوع من البرنامج يقع يوم الاختبار؟ ٨ = مضبوط، أقل = البرنامج لن يكتمل قبله. */
+  function testWeek(){var d=daysBetween(startDate(),testDate());return d<0?0:Math.floor(d/7)+1;}
+
+  function programWeekInfo(){
+    var d=daysBetween(startDate(),todayD());
+    if(d<0)return {phase:"before",current:null,next:1,daysToStart:-d};
+    var wk=Math.floor(d/7)+1;
+    if(wk>8)return {phase:"after",current:8,next:null};
+    return {phase:"in",current:wk,next:wk<8?wk+1:null};
+  }
+  /* الأسبوع التلقائي يتبع التاريخ؛ يُلغى فقط لو ضغط المستخدم على أسبوع محدد. */
+  function autoWeek(){var p=programWeekInfo();return p.current||p.next||1;}
+  if(state.week==null||state.weekAuto)state.week=autoWeek();
+  function fmtDate(iso){try{return new Intl.DateTimeFormat("ar-u-ca-gregory",{day:"numeric",month:"long",year:"numeric"}).format(new Date(iso+"T00:00:00"));}catch(e){return iso;}}
+  function fmtShort(d){try{return new Intl.DateTimeFormat("ar-u-ca-gregory",{weekday:"long",day:"numeric",month:"long"}).format(d);}catch(e){return toISO(d);}}
+  /* صيغة جمع الأيام بالعربي: مفرد/مثنّى/جمع قلّة/تمييز مفرد منصوب. */
+  function plDays(n){
+    if(n===1)return "يوم واحد";
+    if(n===2)return "يومين";
+    if(n>=3&&n<=10)return n+" أيام";
+    return n+" يومًا";
+  }
+  function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}}
+
+  /* ---------- Zones ---------- */
+  function hrmax(){return state.max||Math.round(208-0.7*state.age);}
+  function zones(){
+    var mx=hrmax(),rhr=state.rhr,hrr=mx-rhr;
+    function p(x){return Math.round(hrr*x+rhr);}
+    return {mx:mx,hrr:hrr,
+      warmup:[p(.50),p(.66)], cd:p(.60), cdlow:p(.56),
+      z:[ {k:"z1",lo:p(.50),hi:p(.60)},{k:"z2",lo:p(.60),hi:p(.70)},
+          {k:"z3",lo:p(.70),hi:p(.80)},{k:"z4",lo:p(.80),hi:p(.90)},
+          {k:"z5",lo:p(.90),hi:mx} ]};
+  }
+  function targetText(tg){
+    var z=zones();
+    switch(tg){
+      case "wu": return {label:"Heart Rate "+z.warmup[0]+"–"+z.warmup[1],cls:"hr"};
+      case "z2": return {label:"Heart Rate "+z.z[1].lo+"–"+z.z[1].hi,cls:"hr"};
+      case "z3": return {label:"Heart Rate "+z.z[2].lo+"–"+z.z[2].hi,cls:"hr"};
+      case "z4": return {label:"Heart Rate "+z.z[3].lo+"–"+z.z[3].hi,cls:"hr"};
+      case "cd": return {label:"Heart Rate < "+z.cd,cls:"hr"};
+      case "cd_low": return {label:"Heart Rate < "+z.cdlow,cls:"hr"};
+      case "lap": return {label:"Lap Button",cls:"lap"};
+      default: return {label:"No Target",cls:"none"};
+    }
+  }
+
+  /* ---------- Helpers ---------- */
+  function cvar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function durSecs(d){if(!d||d.indexOf(":")<0)return 0;var p=d.split(":");return (+p[0])*60+(+p[1]);}
+  function workoutSecs(w){var t=0;w.steps.forEach(function(s){if(s.t==="Repeat"){var sub=0;s.sub.forEach(function(x){sub+=durSecs(x.d);});t+=sub*s.reps;}else{t+=durSecs(s.d);}});return t;}
+  function weekWorkouts(wk){var arr=[];wk.days.forEach(function(d){(d.workouts||[]).forEach(function(w){arr.push(w);});});return arr;}
+  function allWorkouts(){var a=[];WEEKS.forEach(function(wk){weekWorkouts(wk).forEach(function(w){a.push(w);});});return a;}
+
+  /* ---------- Per-workout how-to ---------- */
+  var HOWTO={
+    int3030:{purpose:"تطوير القدرة اللاهوائية وتحمّل تكرار الجهد القصير الشديد.",
+      steps:["أكمل خطوة الإحماء أولًا (ستهتزّ الساعة عند نهايتها).",
+        "<b>عند اهتزاز بداية العمل:</b> انطلق جريًا قويًا (جهد ٩ من ١٠) لمدة ٣٠ ثانية.",
+        "<b>عند الاهتزاز التالي:</b> خفّف إلى جري خفيف جدًا أو مشي سريع ٣٠ ثانية.",
+        "كرّر النمط حتى ينتهي عدد الجولات، ثم تبدأ خطوة التهدئة تلقائيًا."],
+      vib:"كل اهتزازة تعني «بدّل»: جري قوي ↔ استشفاء. لا هدف نبض في الفترات، فلن تهتزّ الساعة إلا عند الانتقال.",
+      effort:"كل انطلاقة بنفس القوة من الأولى للأخيرة. لو هبطت قوتك بوضوح في آخر جولتين فتلك حدّك اليوم.",
+      mistake:"لا تبدأ بأقصى سرعة في أول جولة ثم تنهار — وزّع جهدك بثبات."},
+    tempo:{purpose:"رفع العتبة اللاكتاتية لتتحمّل شدّة عالية مدّةً أطول.",
+      steps:["بعد الإحماء، ابدأ جريًا متواصلًا بوتيرة «صعبة لكن مستقرّة».",
+        "أبقِ نبضك داخل نطاق العتبة (الأصفر) طوال المدّة.",
+        "لا توقّفات إطلاقًا — جرٍ متّصل حتى خطوة التهدئة."],
+      vib:"ستهتزّ الساعة إن هبط نبضك تحت النطاق (زد قليلًا) أو تجاوزه (خفّف). اضبط وتيرتك على الاهتزاز.",
+      effort:"الإحساس الصحيح: تستطيع نطق ٣–٤ كلمات فقط، لا جملة كاملة.",
+      mistake:"لا تبدأ سريعًا جدًا فتضطر للتوقّف؛ ابدأ محسوبًا وثابتًا."},
+    yoyo:{purpose:"محاكاة مباشرة لاختبار اليو‑يو: جري متقطّع مع استشفاء ناقص.",
+      steps:["ضع علامتين تجري بينهما ذهابًا وإيابًا (نحو ٢٠م لكل اتجاه).",
+        "<b>عند اهتزاز العمل:</b> اجرِ بسرعة عالية ثابتة طوال ثواني العمل.",
+        "<b>عند الاهتزاز:</b> استشفِ بجري خفيف أو مشي طوال ثواني الاستشفاء (لا تقف تمامًا).",
+        "كرّر حتى نهاية الجولات ثم التهدئة."],
+      vib:"اهتزازة تبدأ الجري السريع، وأخرى تبدأ الاستشفاء. ركّز على ثبات سرعتك في كل جولة.",
+      effort:"استهدف سرعة تستطيع تكرارها لكل الجولات؛ الجولة الأخيرة يجب أن تشبه الأولى.",
+      mistake:"لا تستغلّ الاستشفاء بالوقوف — الاستشفاء النشط جزء من التكيّف."},
+    easylong:{purpose:"بناء القاعدة الهوائية والاقتصاد في الجري.",
+      steps:["اجرِ بوتيرة مريحة جدًا تُبقي نبضك في المنطقة ٢ (الأخضر) طوال الوقت.",
+        "لو ارتفع النبض فوق النطاق: امشِ حتى يهبط ثم استأنف.",
+        "حافظ على الاستمرارية دون توقّف طويل حتى التهدئة."],
+      vib:"ستهتزّ الساعة لو خرجت من النطاق الهادئ — أبقِ الجهد منخفضًا.",
+      effort:"تستطيع التحدّث بجُمل كاملة بلا لهاث.",
+      mistake:"أكبر خطأ: جعله سريعًا. هذا اليوم للقاعدة والاستشفاء لا للسباق."},
+    vo2:{purpose:"رفع سقف استهلاك الأكسجين الأقصى (VO2max).",
+      steps:["بعد الإحماء، <b>عند اهتزاز العمل:</b> اجرِ ١٥ ثانية بجهد قوي جدًا (قرب الأقصى).",
+        "<b>عند الاهتزاز:</b> ١٥ ثانية جري خفيف.",
+        "في تمرين المجموعتين، خذ الدقيقتين بينهما جريًا خفيفًا أو مشيًا.",
+        "كرّر حتى النهاية ثم التهدئة."],
+      vib:"اهتزازة = بدّل. الفترات قصيرة جدًا فلا هدف نبض — اعتمد على إحساسك بالجهد.",
+      effort:"أقوى من فترات ٣٠/٣٠ لكن لمدّة أقصر — تنفّس عميق متوقّع.",
+      mistake:"لا تُبطئ العمل لدرجة الهرولة، ولا تقف تمامًا في الاستشفاء."},
+    sharp:{purpose:"إبقاء الحِدّة العضلية‑العصبية دون إرهاق (شحذ قبل اختبار أو تخفيف).",
+      steps:["٦ انطلاقات قوية ٣٠ ثانية فقط.",
+        "راحة أطول (٤٥ ثانية) بين الانطلاقات — استشفِ جيدًا.",
+        "أنهِ التمرين منتعشًا، لا مُنهكًا."],
+      vib:"اهتزازة = انطلق، اهتزازة = استشفِ. قليلة ومركّزة.",
+      effort:"قوي وسريع لكن قصير؛ لا تُطارد التعب.",
+      mistake:"لا تزد عدد الجولات — هذا يوم شحذ لا يوم حِمل."},
+    rsa:{purpose:"قدرة السبرنت المتكرّر — تخصّصية جدًا لتحرّكات الحكم في المباراة.",
+      steps:["حدّد مسافة نحو ٤٠ مترًا.",
+        "<b>عند اهتزاز العمل:</b> انطلق سبرنت بأقصى سرعة (~٨ ثوانٍ).",
+        "٢٠ ثانية راحة (مشي/وقوف) للعودة والاستعداد.",
+        "٦ تكرارات. نفّذها وأنت غير مُنهك لأقصى فائدة."],
+      vib:"اهتزازة تبدأ السبرنت، وأخرى تبدأ الراحة.",
+      effort:"أقصى سرعة في كل تكرار؛ حافظ على بقاء آخر سبرنت قريبًا من الأول.",
+      mistake:"لا تُقصّر الراحة — السبرنت الحقيقي يحتاج تعافيًا شبه كامل."},
+    easy:{purpose:"استشفاء نشط وتنشيط الدورة الدموية.",
+      steps:["جرٍ خفيف جدًا داخل المنطقة ٢ (الأخضر).",
+        "لا شدّة إطلاقًا؛ الهدف تسريع التعافي حتى التهدئة."],
+      vib:"تهتزّ الساعة لو رفعت الجهد فوق الهادئ — أبقِه منخفضًا.",
+      effort:"مريح تمامًا؛ تنهيه وأنت أنشط ممّا بدأت.",
+      mistake:"تحويله إلى تمرين جادّ — ليس كذلك."},
+    shakeout:{purpose:"إيقاظ الجسم قبل الاختبار بيوم دون أي تعب.",
+      steps:["هرولة خفيفة جدًا وقصيرة داخل المنطقة ٢.",
+        "يمكن إضافة ٢–٣ تسارعات قصيرة خفيفة (اختياري).",
+        "انتهِ منتعشًا تمامًا."],
+      vib:"أبقِ الجهد ضمن الهادئ؛ الاهتزاز ينبّهك لو زدت.",
+      effort:"خفيف جدًا — لا يُتعب إطلاقًا.",
+      mistake:"لا تختبر لياقتك اليوم؛ وفّرها للاختبار غدًا."},
+    strength:{purpose:"وقاية من الإصابة — تقوية الأوتار الخلفية والسمانة، وهي الأكثر تعرّضًا للشدّ في الجري المتقطّع والسبرنتات.",
+      steps:["<b>نورديك:</b> اركع وثبّت كاحليك (شريك أو تحت شيء ثقيل). انزل للأمام ببطء ٣–٤ ثوانٍ مقاومًا حتى آخر مدى تتحمّله، ثم ادفع بيديك للعودة. ٦ تكرارات.",
+        "<b>رفع السمانة على ساق واحدة:</b> قف على حافة درجة، انزل بالكعب تحت المستوى ثم ارتفع كاملًا. ١٢ لكل ساق، نزول محكوم لا ارتداد.",
+        "<b>بلانك جانبي:</b> ٢٠ ثانية لكل جهة، الحوض مرفوع والجسم على خط واحد.",
+        "الراحة بين المجموعات كما تقودك الساعة."],
+      vib:"لا هدف نبض — الاهتزاز يفصل بين مجموعات العمل والراحة فقط. عدّ التكرارات بنفسك.",
+      effort:"معتدل. الهدف تحكّم في الحركة لا إرهاق — تتوقّف قبل انهيار الأداء.",
+      mistake:"لا تبدأ بحجم كبير: النورديك يسبّب ألم عضلات متأخّرًا شديدًا أول أسبوعين. ولا تضعها قبل ٢٤ ساعة من تمرين شدّة أو اختبار."},
+    test:{purpose:"قياس تقدّمك بالبروتوكول الكامل (نتيجتك = المسافة عند العجز).",
+      steps:["أكمل الإحماء (١٢ دقيقة، تقودك الخطوة بالنبض).",
+        "<b>اضغط زر اللفة (Lap):</b> عُد للجوال، افتح «مشغّل صافرات YYIR1»، ارجع لخط البداية.",
+        "<b>اضغط Lap لبدء خطوة الاختبار</b>، ثم اتبع الصافرات جريًا ذهابًا وإيابًا حتى العجز.",
+        "عند توقّفك اضغط Lap، وسجّل «المسافة» الظاهرة في المشغّل — هي نتيجتك.",
+        "أكمل خطوة التهدئة."],
+      vib:"لا هدف نبض هنا؛ الصوت يقودك والساعة تسجّل فقط. اهتزاز Lap يؤكّد الانتقال بين الخطوات.",
+      effort:"ادفع حتى العجز الحقيقي، خصوصًا في المستويات الأخيرة.",
+      mistake:"لا توقف الساعة بالخطأ بدل Lap — تدرّب على الأزرار قبل يوم الاختبار."}
+  };
+  function typeOf(w){var id=w.id||"";
+    if(/Strength/.test(id))return"strength";
+    if(/Tempo/.test(id))return"tempo"; if(/YoYo/.test(id))return"yoyo";
+    if(/EasyLong/.test(id))return"easylong"; if(/VO2/.test(id))return"vo2";
+    if(/Sharp/.test(id))return"sharp"; if(/RSA/.test(id))return"rsa";
+    if(/Shakeout/.test(id))return"shakeout"; if(/Test/.test(id))return"test";
+    if(/Easy/.test(id))return"easy"; return"int3030";}
+  function buildHowto(type){
+    var h=HOWTO[type]||HOWTO.int3030; var wrap=el("div","howto");wrap.hidden=true;
+    wrap.appendChild(el("div","ht-p","🎯 <b>الهدف:</b> "+h.purpose));
+    var sec=el("div");sec.appendChild(el("h5",null,"في الملعب — خطوة بخطوة"));
+    var ol=document.createElement("ol");h.steps.forEach(function(s){var li=document.createElement("li");li.innerHTML=s;ol.appendChild(li);});
+    sec.appendChild(ol);wrap.appendChild(sec);
+    var grid=el("div","ht-grid");
+    grid.appendChild(el("div",null,"<span>📳 الاهتزاز</span><p>"+h.vib+"</p>"));
+    grid.appendChild(el("div",null,"<span>🔥 الشدّة</span><p>"+h.effort+"</p>"));
+    grid.appendChild(el("div",null,"<span>⚠️ تجنّب</span><p>"+h.mistake+"</p>"));
+    wrap.appendChild(grid);return wrap;
+  }
+
+  /* ---------- Render: zone meter ---------- */
+  function renderMeter(){
+    var host=document.getElementById("zmeter");host.innerHTML="";
+    var z=zones(),max=z.mx,min=z.z[0].lo,span=max-min||1;
+    z.z.forEach(function(zn){
+      var row=el("div","zbar");
+      var badge=el("div","zbadge",zn.k.toUpperCase());
+      badge.style.background="var("+ZONE_VAR[zn.k]+")";
+      var track=el("div","ztrack");
+      var fill=el("div","zfill",ZONE_LABEL[zn.k]);
+      fill.style.background="var("+ZONE_VAR[zn.k]+")";
+      var w=((zn.hi-zn.lo)/span)*100, offset=((zn.lo-min)/span)*100;
+      fill.style.width=Math.max(w,16)+"%";
+      track.style.marginInlineStart=offset+"%";
+      track.appendChild(fill);
+      var rng=el("div","zrange",zn.lo+"<s>–</s>"+zn.hi);
+      row.appendChild(badge);row.appendChild(track);row.appendChild(rng);
+      host.appendChild(row);
+    });
+    document.getElementById("p-rhr").innerHTML=state.rhr+'<span class="u"> ن/د</span>';
+    document.getElementById("p-hrmax").innerHTML=z.mx+'<span class="u"> ن/د</span>';
+    document.getElementById("d-hrmax").textContent=z.mx;
+  }
+
+  /* ---------- Render: steps ---------- */
+  function stepRow(s){
+    var row=el("li","step");
+    var kd=el("span","kd");
+    var tg=targetText(s.tg);
+    if(tg.cls==="hr")kd.style.background="var(--accent)";
+    else if(tg.cls==="lap")kd.style.background="var(--test)";
+    row.appendChild(kd);
+    var mid=el("div");
+    mid.appendChild(el("span","kind",s.t));
+    row.appendChild(mid);
+    var right=el("div");
+    var durTxt = (s.d==="Lap Button") ? "" : (s.d ? '<span class="ltr">'+s.d+'</span>' : "");
+    var meta=el("div");meta.style.textAlign="end";
+    if(durTxt)meta.appendChild(el("span","dur",durTxt));
+    var t=el("div","tgt "+tg.cls,'<span class="ltr">'+tg.label+"</span>");
+    meta.appendChild(t);
+    row.appendChild(meta);
+    if(s.hint){var h=el("div","hint",s.hint);row.appendChild(h);}
+    return row;
+  }
+  function stepsList(steps){
+    var ul=el("ul","steps");
+    steps.forEach(function(s){
+      if(s.t==="Repeat"){
+        var box=el("div","rep");
+        var head=el("div","rhead");
+        head.appendChild(el("span","x","× "+s.reps));
+        head.appendChild(el("span",null,"Repeat"));
+        box.appendChild(head);
+        box.appendChild(stepsList(s.sub));
+        var li=el("li");li.style.listStyle="none";li.appendChild(box);
+        ul.appendChild(li);
+      }else{
+        ul.appendChild(stepRow(s));
+      }
+    });
+    return ul;
+  }
+
+  /* ---------- Copy workout ---------- */
+  function workoutText(w){
+    var lines=[];
+    lines.push("اسم التمرين: "+w.id);
+    lines.push("نوع النشاط: "+w.activity);
+    lines.push("");
+    var n=0;
+    function fmt(s){
+      var tg=targetText(s.tg);
+      var dur=(s.d==="Lap Button")?"Lap Button":("Time: "+s.d);
+      return s.t+" | "+dur+" | Target: "+tg.label;
+    }
+    w.steps.forEach(function(s){
+      n++;
+      if(s.t==="Repeat"){
+        lines.push("الخطوة "+n+" | Repeat "+s.reps+"x");
+        var m=0;
+        s.sub.forEach(function(x){m++;lines.push("  الخطوة "+n+"."+m+" | "+fmt(x));});
+      }else{
+        lines.push("الخطوة "+n+" | "+fmt(s));
+      }
+    });
+    lines.push("");
+    lines.push("الملاحظات: "+w.notes);
+    return lines.join("\n");
+  }
+
+  /* ---------- Test results ---------- */
+  var TESTS=[
+    {id:"W4-D4-Test",    label:"تجريبي ١", wk:4},
+    {id:"W7-D4-Test",    label:"تجريبي ٢", wk:7},
+    {id:"W8-D5-RealTest",label:"الاختبار الحقيقي", wk:8}
+  ];
+  function isTestId(id){return TESTS.some(function(t){return t.id===id;});}
+  /* Bangsbo et al.: VO2max ≈ مسافة اليو‑يو (م) × 0.0084 + 36.4 */
+  function vo2max(dist){return dist>0?(dist*0.0084+36.4):null;}
+  /* المستوى/السرعة المقابلة لمسافة، من جدول الصوت المستخرَج. */
+  function levelForDist(dist){
+    var LV=(window.__YOYO_TL&&window.__YOYO_TL.lv)||[],best=null;
+    for(var i=0;i<LV.length;i++){if(dist>LV[i][4])best=LV[i];}
+    return best; /* [مستوى, وقت, سرعة, _, من, إلى] */
+  }
+  /* النتائج المسجّلة بترتيب البرنامج. */
+  function resultRows(){
+    return TESTS.map(function(t){return {t:t,r:state.results[t.id]||null};});
+  }
+  function prevResult(id){
+    var idx=TESTS.findIndex(function(t){return t.id===id;}),p=null;
+    for(var i=0;i<idx;i++){if(state.results[TESTS[i].id])p={t:TESTS[i],r:state.results[TESTS[i].id]};}
+    return p;
+  }
+
+  /* نموذج تسجيل النتيجة داخل بطاقة الاختبار. */
+  function buildResultForm(w){
+    var box=el("div","resform");
+    box.appendChild(el("div","rf-h","📋 سجّل نتيجتك في هذا الاختبار"));
+    var r=state.results[w.id]||{};
+    var row=el("div","rf-row");
+    var dl=el("label",null,"المسافة التي وصلتها (م)");
+    var di=el("input");di.type="number";di.min="0";di.max="4480";di.step="20";di.inputMode="numeric";
+    di.value=(r.dist!=null?r.dist:"");di.placeholder="مثال: 1240";dl.appendChild(di);
+    var hl=el("label",null,"أعلى نبض سجّلته الساعة");
+    var hi=el("input");hi.type="number";hi.min="120";hi.max="230";hi.inputMode="numeric";
+    hi.value=(r.hr!=null?r.hr:"");hi.placeholder="اختياري";hl.appendChild(hi);
+    row.appendChild(dl);row.appendChild(hl);box.appendChild(row);
+    var out=el("div","rf-out");box.appendChild(out);
+    var acts=el("div","rf-acts");box.appendChild(acts);
+
+    function paint(){
+      out.innerHTML="";acts.innerHTML="";
+      var cur=state.results[w.id];
+      var d=+di.value||0;
+      if(d>0){
+        var v=vo2max(d),L=levelForDist(d);
+        var bits="تقدير <span class='ltr'>VO2max</span>: <b>"+v.toFixed(1)+"</b> مل/كجم/د";
+        if(L)bits+=" · المستوى <b>"+L[0]+"</b> عند <b>"+L[2]+"</b> كم/س";
+        var p=prevResult(w.id);
+        if(p&&p.r.dist){
+          var diff=d-p.r.dist,pct=Math.round(diff/p.r.dist*100);
+          bits+="<br>مقارنةً بـ«"+p.t.label+"»: <b>"+(diff>=0?"+":"−")+Math.abs(diff)+"</b> م ("+(diff>=0?"+":"−")+Math.abs(pct)+"٪)";
+        }
+        out.innerHTML=bits;
+      }
+      var sv=el("button","pill solid",cur?"حدّث النتيجة":"احفظ النتيجة");sv.type="button";
+      sv.addEventListener("click",function(){
+        var dist=+di.value,hr=+hi.value;
+        if(!(dist>0)){out.textContent="أدخل مسافة أكبر من صفر.";return;}
+        state.results[w.id]={dist:dist,hr:hr>0?hr:null,date:toISO(todayD())};
+        state.done[w.id]=1;delete state.postponed[w.id];
+        rerender();
+      });
+      acts.appendChild(sv);
+
+      /* معايرة النبض الأقصى من نبض الاختبار الفعلي. */
+      var hrv=+hi.value;
+      if(hrv>=120&&hrv<=230&&hrv!==hrmax()){
+        var cal=el("button","pill","اعتمده كنبض أقصى ("+hrv+")");cal.type="button";
+        cal.title="يستبدل تقدير Tanaka بقياسك الفعلي ويعيد حساب كل نطاقات النبض";
+        cal.addEventListener("click",function(){
+          state.max=hrv;
+          if(state.results[w.id])state.results[w.id].hr=hrv;
+          syncInputs();rerender();renderMeter();renderFit();
+        });
+        acts.appendChild(cal);
+      }
+      if(cur){
+        var del=el("button","pill ghost","احذف النتيجة");del.type="button";
+        del.addEventListener("click",function(){delete state.results[w.id];rerender();});
+        acts.appendChild(del);
+      }
+    }
+    di.addEventListener("input",paint);hi.addEventListener("input",paint);
+    paint();
+    return box;
+  }
+
+  /* ---------- Render: results panel ---------- */
+  function renderResults(){
+    var host=document.getElementById("resultsPanel");if(!host)return;
+    host.innerHTML="";
+    var grid=el("div","res-grid"),rows=resultRows(),lastSeen=null;
+    rows.forEach(function(x){
+      var c=el("div","res-card"+(x.r?" has":""));
+      c.appendChild(el("div","rc-lab",x.t.label));
+      c.appendChild(el("div","rc-wk","أسبوع "+x.t.wk+" · "+x.t.id));
+      if(!x.r){
+        c.appendChild(el("div","rc-empty","لم يُسجَّل بعد — سجّله من بطاقة الاختبار في الأسبوع "+x.t.wk+"."));
+      }else{
+        var big=el("div","rc-big",x.r.dist+'<span class="u">م</span>');
+        c.appendChild(big);
+        var meta=el("div","rc-meta");
+        var v=vo2max(x.r.dist),L=levelForDist(x.r.dist);
+        meta.appendChild(el("div",null,'تقدير <span class="ltr">VO2max</span>: <b>'+v.toFixed(1)+"</b> مل/كجم/د"));
+        if(L)meta.appendChild(el("div",null,"المستوى: <b>"+L[0]+"</b> عند <b>"+L[2]+"</b> كم/س"));
+        if(x.r.hr)meta.appendChild(el("div",null,"أعلى نبض: <b>"+x.r.hr+"</b> ن/د"));
+        meta.appendChild(el("div",null,"التاريخ: "+fmtDate(x.r.date)));
+        c.appendChild(meta);
+        if(lastSeen){
+          var diff=x.r.dist-lastSeen.r.dist,pct=Math.round(diff/lastSeen.r.dist*100);
+          c.appendChild(el("div","rc-delta "+(diff>=0?"up":"down"),
+            (diff>=0?"▲ +":"▼ −")+Math.abs(diff)+" م ("+(diff>=0?"+":"−")+Math.abs(pct)+"٪) عن "+lastSeen.t.label));
+        }
+        lastSeen=x;
+      }
+      grid.appendChild(c);
+    });
+    host.appendChild(grid);
+
+    var have=rows.filter(function(x){return x.r;});
+    var sum=el("div","res-sum");
+    if(!have.length){
+      sum.innerHTML="لا نتائج بعد. بعد كل اختبار افتح بطاقته في الأسبوع المقابل وأدخل المسافة — سيظهر تقدّمك هنا بالأرقام.";
+    }else{
+      var f=have[0],l=have[have.length-1];
+      var bits=[];
+      bits.push("سجّلت <b>"+have.length+"</b> من <b>3</b> اختبارات.");
+      if(have.length>1){
+        var d=l.r.dist-f.r.dist,p=Math.round(d/f.r.dist*100);
+        var dv=vo2max(l.r.dist)-vo2max(f.r.dist);
+        bits.push("بين «"+f.t.label+"» و«"+l.t.label+"»: <b>"+(d>=0?"+":"−")+Math.abs(d)+"</b> م ("+
+          (d>=0?"+":"−")+Math.abs(p)+"٪)، أي <b>"+(dv>=0?"+":"−")+Math.abs(dv).toFixed(1)+
+          '</b> في تقدير <span class="ltr">VO2max</span>.');
+      }
+      if(l.r.hr){
+        bits.push("أعلى نبض مسجَّل: <b>"+l.r.hr+"</b> ن/د"+(l.r.hr===hrmax()?" — وهو المعتمد في نطاقاتك.":
+          " — تقدر تعتمده بدل التقدير الحالي ("+hrmax()+") من بطاقة الاختبار."));
+      }
+      sum.innerHTML=bits.join("<br>");
+    }
+    host.appendChild(sum);
+  }
+
+  /* جسر للمشغّل (سكربت منفصل): يحفظ المسافة في الاختبار الصحيح. */
+  window.__saveResult=function(id,dist){
+    if(!isTestId(id)||!(dist>0))return false;
+    var prev=state.results[id]||{};
+    state.results[id]={dist:dist,hr:prev.hr||null,date:toISO(todayD())};
+    state.done[id]=1;delete state.postponed[id];
+    rerender();return true;
+  };
+  window.__testLabel=function(id){
+    var t=TESTS.filter(function(x){return x.id===id;})[0];return t?t.label:id;
+  };
+  /* أقرب اختبار لم يُسجَّل بعد — يُستخدم لو فُتح المشغّل من الزر العام. */
+  window.__nextTestId=function(){
+    for(var i=0;i<TESTS.length;i++){if(!state.results[TESTS[i].id])return TESTS[i].id;}
+    return TESTS[TESTS.length-1].id;
+  };
+
+  /* ---------- Postpone helpers ---------- */
+  /* كل تمارين البرنامج المجدولة في تاريخ معيّن (يوم الراحة لا يُعيد شيئًا). */
+  function workoutsOn(date){
+    var out=[];
+    WEEKS.forEach(function(wk){
+      wk.days.forEach(function(day){
+        (day.workouts||[]).forEach(function(w){
+          var dd=effDate(wk.n,day,w);
+          if(dd&&daysBetween(dd,date)===0)out.push({wk:wk.n,day:day,w:w});
+        });
+      });
+    });
+    return out;
+  }
+  /* كل تمارين البرنامج مع تواريخها الفعلية، مرتّبة زمنيًا (للتقويم والتصدير). */
+  function scheduleAll(){
+    var out=[];
+    WEEKS.forEach(function(wk){
+      wk.days.forEach(function(day){
+        (day.workouts||[]).forEach(function(w){
+          var dd=effDate(wk.n,day,w);
+          if(dd)out.push({wk:wk.n,day:day,w:w,date:dd,moved:!!state.moved[w.id]});
+        });
+      });
+    });
+    out.sort(function(a,b){return a.date-b.date;});
+    return out;
+  }
+  function postponedList(){
+    var out=[];
+    WEEKS.forEach(function(wk){weekWorkouts(wk).forEach(function(w){
+      if(state.postponed[w.id]&&!state.done[w.id])out.push({wk:wk.n,w:w});});});
+    return out;
+  }
+  function rerender(){save();renderPlanCtl();renderRail();renderWeek();renderProgress();renderCountdown();renderResults();}
+  function shiftBy(n){
+    state.shift=Math.max(-56,Math.min(120,(state.shift||0)+n));
+    if(state.weekAuto)state.week=autoWeek();
+    rerender();
+  }
+
+  /* ---------- Render: plan control ---------- */
+  function renderPlanCtl(){
+    var box=document.getElementById("planCtl");box.innerHTML="";
+    var info=programWeekInfo(),st=startDate(),tw=testWeek();
+
+    var when=el("div","pc-when");
+    var line;
+    if(info.phase==="before"){
+      line="يبدأ البرنامج <b>"+fmtShort(st)+"</b> — بعد "+plDays(info.daysToStart);
+    }else if(info.phase==="after"){
+      line="انتهى جدول البرنامج (بدأ <b>"+fmtShort(st)+"</b>)";
+    }else{
+      line="أنت في <b>الأسبوع "+info.current+"</b> — بدأ البرنامج "+fmtShort(st);
+    }
+    when.innerHTML=line;
+
+    var fit=el("div","pc-fit");
+    if(tw===8){fit.textContent="✓ يوم الاختبار يقع في الأسبوع الثامن — الجدول مضبوط.";}
+    else if(tw<8&&tw>0){fit.className="pc-fit warn";
+      fit.textContent="⚠ يوم الاختبار يقع في الأسبوع "+tw+" — لن تُكمل البرنامج قبله. قدِّم البداية أو أخِّر موعد الاختبار.";}
+    else if(tw===0){fit.className="pc-fit warn";fit.textContent="⚠ موعد الاختبار قبل بداية البرنامج.";}
+    else{fit.textContent="بعد نهاية الأسبوع الثامن يتبقّى "+plDays((tw-8)*7)+" تقريبًا قبل الاختبار.";}
+    when.appendChild(fit);
+    box.appendChild(when);
+
+    var acts=el("div","pc-acts");
+
+    var sched=workoutsOn(todayD());
+    var todays=sched.filter(function(x){return !state.done[x.w.id]&&!state.postponed[x.w.id];});
+    var lbl,ttl;
+    if(todays.length){lbl="ما أتمرّن اليوم ("+todays.length+")";ttl="أجّل تمارين اليوم وضعها في قائمة المؤجّل";}
+    else if(sched.length&&sched.every(function(x){return state.done[x.w.id];})){
+      lbl="أنجزت تمارين اليوم ✓";ttl="كل تمارين اليوم مُعلَّمة كمُنجزة";}
+    else if(sched.length){lbl="تمارين اليوم مؤجّلة";ttl="تمارين اليوم موجودة في قائمة المؤجّل بالأسفل";}
+    else{lbl="لا تمرين اليوم";ttl="لا يوجد تمرين مجدول في تاريخ اليوم";}
+    var skip=el("button","pill"+(todays.length?" solid":""),lbl);
+    skip.type="button";skip.title=ttl;
+    if(!todays.length)skip.disabled=true;
+    skip.addEventListener("click",function(){
+      todays.forEach(function(x){state.postponed[x.w.id]=1;});rerender();});
+    acts.appendChild(skip);
+
+    [["أجّل أسبوع",7],["أجّل يوم",1],["قدّم يوم",-1]].forEach(function(p){
+      var b=el("button","pill",p[0]);b.type="button";
+      b.title=p[1]>0?"يزيح البرنامج كله "+p[1]+" أيام للأمام":"يرجع البرنامج كله يومًا للخلف";
+      b.addEventListener("click",function(){shiftBy(p[1]);});
+      acts.appendChild(b);
+    });
+
+    if(state.shift){
+      var sgn=state.shift>0?"مؤجَّل ":"مقدَّم ";
+      var rst=el("button","pill ghost","↺ "+sgn+plDays(Math.abs(state.shift)));
+      rst.type="button";rst.title="ارجع لبداية البرنامج التلقائية";
+      rst.addEventListener("click",function(){state.shift=0;if(state.weekAuto)state.week=autoWeek();rerender();});
+      acts.appendChild(rst);
+    }
+    box.appendChild(acts);
+  }
+
+  /* ---------- Render: postponed tray ---------- */
+  function renderTray(){
+    var tray=document.getElementById("tray");tray.innerHTML="";
+    var list=postponedList();
+    tray.hidden=!list.length;
+    if(!list.length)return;
+    tray.appendChild(el("span","th","مؤجّلة ("+list.length+"):"));
+    list.forEach(function(x){
+      var it=el("span","ti");
+      it.appendChild(el("span",null,"أ"+x.wk+" · "+x.w.id));
+      /* انقله إلى تاريخ محدّد بدل إرجاعه لموضعه الأصلي فقط. */
+      var dt=el("input");dt.type="date";dt.className="ti-date";
+      dt.value=state.moved[x.w.id]||toISO(todayD());
+      dt.title="انقل "+x.w.id+" إلى هذا التاريخ";
+      dt.setAttribute("aria-label","انقل "+x.w.id+" إلى تاريخ");
+      dt.addEventListener("change",function(){
+        if(/^\d{4}-\d{2}-\d{2}$/.test(dt.value)){
+          state.moved[x.w.id]=dt.value;delete state.postponed[x.w.id];rerender();
+        }
+      });
+      it.appendChild(dt);
+      var un=el("button",null,"↩");un.type="button";
+      un.title="أرجِع "+x.w.id+" لموعده الأصلي";
+      un.setAttribute("aria-label","أرجِع "+x.w.id+" لموعده الأصلي");
+      un.addEventListener("click",function(){
+        delete state.postponed[x.w.id];delete state.moved[x.w.id];rerender();});
+      it.appendChild(un);
+      tray.appendChild(it);
+    });
+    var clr=el("button","pill ghost tclear","أرجِعها كلها");clr.type="button";
+    clr.addEventListener("click",function(){
+      list.forEach(function(x){delete state.postponed[x.w.id];delete state.moved[x.w.id];});
+      rerender();});
+    tray.appendChild(clr);
+  }
+
+  var howtoOpen={};   /* الشروح المفتوحة، تبقى مفتوحة بعد إعادة الرسم */
+
+  /* ---------- RPE + advice ---------- */
+  var RPE_LABEL={1:"خفيف جدًا",2:"خفيف جدًا",3:"خفيف",4:"خفيف",5:"متوسط",6:"متوسط",
+                 7:"صعب",8:"صعب",9:"أقصى",10:"أقصى"};
+  /* التمارين المقيَّمة مرتّبة زمنيًا. */
+  function ratedHistory(){return scheduleAll().filter(function(x){return state.rpe[x.w.id]>0;});}
+  function weekRpe(n){
+    var v=[];weekWorkouts(WEEKS[n-1]).forEach(function(w){if(state.rpe[w.id]>0)v.push(state.rpe[w.id]);});
+    if(!v.length)return null;
+    return v.reduce(function(a,b){return a+b;},0)/v.length;
+  }
+  /* نسبة إنجاز كتلة أسابيع (التمارين الاختيارية لا تُحتسب). */
+  function blockDone(from,to){
+    var tot=0,done=0;
+    for(var n=from;n<=to;n++){
+      weekWorkouts(WEEKS[n-1]).forEach(function(w){
+        if(w.optional)return;tot++;if(state.done[w.id])done++;});
+    }
+    return {tot:tot,done:done,pct:tot?done/tot:0};
+  }
+  function buildRpe(w){
+    var box=el("div","rpe");
+    box.appendChild(el("span",null,"الجهد:"));
+    var sel=document.createElement("select");
+    sel.setAttribute("aria-label","تقييم الجهد المبذول في "+w.id);
+    var o0=document.createElement("option");o0.value="";o0.textContent="— قيّمه";sel.appendChild(o0);
+    for(var i=1;i<=10;i++){
+      var o=document.createElement("option");o.value=i;o.textContent=i+" · "+RPE_LABEL[i];sel.appendChild(o);
+    }
+    sel.value=state.rpe[w.id]||"";
+    sel.addEventListener("change",function(){
+      var v=+sel.value;
+      if(v>=1&&v<=10)state.rpe[w.id]=v;else delete state.rpe[w.id];
+      rerender();
+    });
+    box.appendChild(sel);
+    var cur=state.rpe[w.id];
+    if(cur)box.appendChild(el("span","rv"+(cur>=8?" hard":""),cur+"/10"));
+    return box;
+  }
+
+  function renderAdvice(){
+    var host=document.getElementById("advice");if(!host)return;
+    host.innerHTML="";
+    var out=[],wkN=state.week;
+
+    /* ١. حِمل مرتفع متواصل. */
+    var last3=ratedHistory().slice(-3);
+    if(last3.length===3){
+      var avg=last3.reduce(function(a,x){return a+state.rpe[x.w.id];},0)/3;
+      if(avg>=8)out.push({k:"warn",i:"🔥",t:"حِمل مرتفع",
+        m:"آخر ٣ تمارين قيّمتها بمعدّل <b>"+avg.toFixed(1)+"/١٠</b>. لو رافق ذلك نوم أسوأ أو نبض راحة أعلى من "+
+          state.rhr+"، فخفّف الحجم ٢٠–٣٠٪ ليومين إلى ثلاثة — التكيّف يحصل في الاستشفاء لا في الإجهاد."});
+    }
+
+    /* ٢. تأجيلات متراكمة في الأسبوع المعروض. */
+    var pw=weekWorkouts(WEEKS[wkN-1]).filter(function(w){
+      return state.postponed[w.id]&&!state.done[w.id];}).length;
+    if(pw>=2)out.push({k:"warn",i:"⏸",t:"تأجيلات متراكمة",
+      m:"أجّلت <b>"+pw+"</b> تمارين في الأسبوع "+wkN+". محاولة تعويضها كلها في أيام متتالية أسوأ من تخطّيها — "+
+        "اختر الأهم (تمرين محاكاة اليو‑يو) ودع الباقي، أو انقل التمارين لتواريخ متباعدة من شريط المؤجّل."});
+
+    /* ٣. استشارة التخفيف في الأسبوع الثامن، مبنيّة على ما أُنجز فعلًا في ٥–٧. */
+    if(wkN===8){
+      var b=blockDone(5,7),p=Math.round(b.pct*100);
+      if(b.pct>=0.8){
+        out.push({k:"info",i:"✅",t:"التخفيف المعتاد مناسب لك",
+          m:"أنجزت <b>"+b.done+"/"+b.tot+"</b> ("+p+"٪) من أسابيع ٥–٧. حملت تعبًا حقيقيًا، والتخفيف كما هو مكتوب "+
+            "هو ما يحوّله لأداء. لا تضف شيئًا، ولا تجرّب أي جديد هذا الأسبوع."});
+      }else if(b.pct>=0.5){
+        out.push({k:"info",i:"↔",t:"خفّف أقل قليلًا",
+          m:"أنجزت <b>"+b.done+"/"+b.tot+"</b> ("+p+"٪) من أسابيع ٥–٧، أي تعبك المتراكم أقل من المفترض. "+
+            "أبقِ شحذ الأحد كما هو، ولك أن تزيد هرولة الثلاثاء ٥–١٠ دقائق. لا تزد الشدّة."});
+      }else{
+        out.push({k:"warn",i:"⚠",t:"التخفيف الكامل قد يضرّك هنا",
+          m:"أنجزت <b>"+b.done+"/"+b.tot+"</b> فقط ("+p+"٪) من أسابيع ٥–٧. مشكلتك نقص تدريب لا تعب متراكم، "+
+            "والتخفيف يفيد من تعب. أبقِ شحذ الأحد، وأضف جلسة محاكاة يو‑يو خفيفة (٦×٤٥/٧٥) يوم الثلاثاء، "+
+            "واحتفظ بـ ≥٧٢ ساعة راحة قبل الاختبار. توقّع نتيجة أقل من المستهدف — وهذا معلومة مفيدة لا فشل."});
+      }
+    }
+
+    out.forEach(function(a){
+      var box=el("div","adv "+a.k);
+      box.appendChild(el("div","ai",a.i));
+      var t=el("div");t.appendChild(el("div","at",a.t));t.appendChild(el("div","am",a.m));
+      box.appendChild(t);host.appendChild(box);
+    });
+  }
+
+  /* ---------- Render: week rail ---------- */
+  function renderRail(){
+    var rail=document.getElementById("rail");rail.innerHTML="";
+    var info=programWeekInfo();
+    WEEKS.forEach(function(wk){
+      var ws=weekWorkouts(wk);
+      var doneN=ws.filter(function(w){return state.done[w.id];}).length;
+      var cls="wk ph-"+wk.key+(doneN===ws.length&&ws.length?" done-all":"");
+      if(wk.n===info.next&&info.phase==="before")cls+=" upcoming";
+      var b=el("button",cls);
+      b.setAttribute("role","tab");
+      b.setAttribute("aria-selected",wk.n===state.week?"true":"false");
+      var badge="";
+      if(wk.n===info.current&&info.phase==="in")badge='<span class="badge" title="جدولك هذا الأسبوع">هذا الأسبوع</span>';
+      else if(wk.n===info.next)badge='<span class="badge next" title="الأسبوع القادم من البرنامج">الأسبوع الجاي</span>';
+      b.innerHTML=badge+
+        '<div class="wn">أسبوع '+wk.n+'</div>'+
+        '<span class="wp ph-'+wk.key+'">'+wk.phase+'</span>'+
+        '<div class="wc">'+doneN+'/'+ws.length+' تمرين</div>';
+      b.addEventListener("click",function(){state.week=wk.n;state.weekAuto=false;save();renderRail();renderWeek();
+        document.getElementById("weekMeta").scrollIntoView({behavior:"smooth",block:"start"});});
+      rail.appendChild(b);
+    });
+  }
+
+  /* ---------- Render: selected week ---------- */
+  function renderWeek(){
+    var wk=WEEKS[state.week-1];
+    var meta=document.getElementById("weekMeta");meta.innerHTML="";
+    var tag=el("span","tag ph-"+wk.key,"المرحلة: "+wk.phase);
+    var secs=0;wk.days.forEach(function(d){(d.workouts||[]).forEach(function(w){secs+=workoutSecs(w);});});
+    var mins=Math.round(secs/60);
+    var vol=el("span","vol","≈ "+mins+" دقيقة جري مجدولة"+(wk.days.some(function(d){return (d.workouts||[]).some(function(w){return w.zone==="test";});})?" + اختبار (زمن مفتوح)":""));
+    meta.appendChild(tag);meta.appendChild(vol);
+    if(!state.weekAuto){
+      var back=el("button","tag","↺ اتبع التاريخ");
+      back.type="button";back.style.cursor="pointer";back.style.border="1px dashed var(--line-2)";
+      back.style.background="transparent";back.style.color="var(--ink-2)";
+      back.title="ارجع للأسبوع الذي يحدّده تاريخ الاختبار تلقائيًا";
+      back.addEventListener("click",function(){state.weekAuto=true;state.week=autoWeek();save();renderRail();renderWeek();});
+      meta.appendChild(back);
+    }
+    var wr=weekRpe(wk.n);
+    if(wr!=null)meta.appendChild(el("span","vol","معدّل الجهد: "+wr.toFixed(1)+"/10"));
+    meta.appendChild(el("p","desc",wk.desc));
+    renderTray();renderAdvice();
+
+    var grid=document.getElementById("grid");grid.innerHTML="";
+    wk.days.forEach(function(day){
+      var dd=dayDate(wk.n,day);
+      var isToday=dd&&daysBetween(dd,todayD())===0;
+      if(day.rest){
+        var rc=el("div","card");
+        rc.appendChild(el("div","stripe")).style.background="var(--line-2)";
+        var rch=el("div","ch");
+        var rl=el("div");rl.appendChild(el("div","day",day.name));rl.appendChild(el("div","focus",day.focus));
+        if(dd)rl.appendChild(el("div","dstamp"+(isToday?" is-today":""),isToday?"اليوم · "+fmtShort(dd):fmtShort(dd)));
+        rch.appendChild(rl);
+        rc.appendChild(rch);
+        var rb=el("div","rest");rb.appendChild(el("div","big","راحة"));rb.appendChild(el("div",null,day.note||""));
+        rc.appendChild(rb);
+        grid.appendChild(rc);
+        return;
+      }
+      var dname=day.realTest?fmtDate(state.testDate):day.name;
+      (day.workouts||[]).forEach(function(w,idx){
+        var isPost=!!state.postponed[w.id]&&!state.done[w.id];
+        var card=el("div","card"+(isPost?" postponed":""));
+        var zvar=ZONE_VAR[w.zone||day.zone||"z2"];
+        var stripe=el("div","stripe");stripe.style.background="var("+zvar+")";card.appendChild(stripe);
+        var ch=el("div","ch");
+        var info=el("button","infob");info.type="button";info.textContent="!";
+        info.setAttribute("aria-label","شرح التمرين: ماذا أفعل بالضبط");info.setAttribute("aria-expanded","false");
+        info.setAttribute("title","شرح التمرين");
+        ch.appendChild(info);
+        var left=el("div");
+        var dayLine=el("div","day",idx===0?dname:dname+" · إضافة");
+        if(isPost)dayLine.appendChild(el("span","flag","مؤجّل"));
+        left.appendChild(dayLine);
+        left.appendChild(el("div","focus",
+          w.strength?"تقوية وقائية — نورديك وسمانة (≈١٥ د)":
+          w.optional?"سبرنتات RSA — تخصّصية (اختياري)":day.focus));
+        var wd=effDate(wk.n,day,w),wToday=wd&&daysBetween(wd,todayD())===0,isMoved=!!state.moved[w.id];
+        if(wd&&!day.realTest)left.appendChild(el("div","dstamp"+(wToday?" is-today":""),
+          (isMoved?"↷ نُقل إلى ":"")+(wToday?"اليوم · ":"")+fmtShort(wd)));
+        ch.appendChild(left);
+        var chip=el("span","chip",ZONE_LABEL[w.zone||day.zone]);
+        chip.style.background="var("+ZONE_SOFT[w.zone||day.zone]+")";
+        chip.style.color="var("+ZONE_VAR[w.zone||day.zone]+")";
+        ch.appendChild(chip);
+        card.appendChild(ch);
+
+        var howto=buildHowto(typeOf(w));card.appendChild(howto);
+        /* الشبكة تُعاد بناؤها عند أي تغيير، فنحتفظ بالشروح المفتوحة كما هي. */
+        howto.hidden=!howtoOpen[w.id];
+        info.setAttribute("aria-expanded",howtoOpen[w.id]?"true":"false");
+        info.addEventListener("click",function(){var show=howto.hidden;howto.hidden=!show;
+          if(show)howtoOpen[w.id]=1;else delete howtoOpen[w.id];
+          info.setAttribute("aria-expanded",show?"true":"false");});
+
+        var body=el("div","body");
+        var wid=el("div","wid");
+        wid.appendChild(el("span","code",w.id));
+        wid.appendChild(el("span","act",'<span class="ltr">'+w.activity+'</span>'));
+        if(w.zone!=="test"){var ws2=workoutSecs(w);wid.appendChild(el("span","vol","≈ "+Math.round(ws2/60)+" د"));}
+        else{wid.appendChild(el("span","vol","زمن مفتوح"));}
+        body.appendChild(wid);
+        body.appendChild(stepsList(w.steps));
+        if(w.notes)body.appendChild(el("div","notes",w.notes));
+        if((w.zone||day.zone)==="test"){
+          var pb=el("button","playcta");pb.type="button";pb.style.marginTop="12px";
+          pb.innerHTML='<span class="ic">🔊</span><span><span class="tt">شغّل صافرات هذا الاختبار</span>'+
+            '<span class="ss">نغمات YYIR1 بالسرعات الصحيحة — بلا تطبيق منفصل</span></span><span class="go">تشغيل ←</span>';
+          pb.addEventListener("click",function(){if(window.__openYoyo)window.__openYoyo(w.id);});
+          body.appendChild(pb);
+        }
+        if(isTestId(w.id))body.appendChild(buildResultForm(w));
+        card.appendChild(body);
+
+        var cf=el("div","cf");
+        var lab=el("label","donebox");
+        var cb=el("input");cb.type="checkbox";cb.checked=!!state.done[w.id];
+        cb.addEventListener("change",function(){
+          if(cb.checked){state.done[w.id]=1;delete state.postponed[w.id];}else{delete state.done[w.id];}
+          rerender();});
+        lab.appendChild(cb);lab.appendChild(el("span",null,"تم إنجازه"));
+        cf.appendChild(lab);
+        var pp=el("button","pill ghost",isPost?"↩ أرجِعه":"أجّله");
+        pp.type="button";pp.style.padding="5px 10px";pp.style.fontSize="12px";
+        pp.title=isPost?"أرجِع هذا التمرين للجدول":"ما راح أتمرّن هذا اليوم — انقله لقائمة المؤجّل";
+        pp.addEventListener("click",function(){
+          if(isPost)delete state.postponed[w.id];else state.postponed[w.id]=1;
+          rerender();});
+        if(!state.done[w.id])cf.appendChild(pp);
+        else if(!isTestId(w.id))cf.appendChild(buildRpe(w));
+        var cp=el("button","copy",'<span>⧉</span><span>نسخ الخطوات</span>');
+        cp.addEventListener("click",function(){
+          var txt=workoutText(w);
+          function ok(){cp.innerHTML='<span>✓</span><span>نُسخ</span>';setTimeout(function(){cp.innerHTML='<span>⧉</span><span>نسخ الخطوات</span>';},1600);}
+          if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,function(){window.prompt("انسخ الخطوات:",txt);});}
+          else{window.prompt("انسخ الخطوات:",txt);}
+        });
+        cf.appendChild(cp);
+        card.appendChild(cf);
+        grid.appendChild(card);
+      });
+    });
+  }
+
+  /* ---------- Backup / calendar export ---------- */
+  function saveFile(name,text,mime){
+    try{
+      var blob=new Blob([text],{type:mime+";charset=utf-8"});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement("a");a.href=url;a.download=name;
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+      setTimeout(function(){URL.revokeObjectURL(url);},4000);
+      return true;
+    }catch(e){return false;}
+  }
+  function dbMsg(text,cls){
+    var m=document.getElementById("db-msg");if(!m)return;
+    m.hidden=!text;m.className="db-msg"+(cls?" "+cls:"");m.textContent=text||"";
+  }
+  function exportBackup(){
+    var payload={app:"yoyo-ir1",v:1,exported:new Date().toISOString(),state:{
+      age:state.age,rhr:state.rhr,max:state.max,week:state.week,weekAuto:state.weekAuto,
+      testDate:state.testDate,shift:state.shift,done:state.done,postponed:state.postponed,
+      moved:state.moved,results:state.results,rpe:state.rpe}};
+    var name="yoyo-backup-"+toISO(todayD())+".json";
+    if(saveFile(name,JSON.stringify(payload,null,2),"application/json"))
+      dbMsg("✓ نُزّلت النسخة الاحتياطية: "+name,"ok");
+    else dbMsg("تعذّر إنشاء الملف في هذا المتصفّح.","err");
+  }
+  function importBackup(file){
+    var rd=new FileReader();
+    rd.onerror=function(){dbMsg("تعذّرت قراءة الملف.","err");};
+    rd.onload=function(){
+      var data;
+      try{data=JSON.parse(rd.result);}catch(e){dbMsg("الملف ليس JSON صالحًا.","err");return;}
+      var s=(data&&data.state)?data.state:data;
+      if(!s||typeof s!=="object"){dbMsg("لم أجد بيانات صالحة في الملف.","err");return;}
+      if(data&&data.app&&data.app!=="yoyo-ir1"){dbMsg("هذا الملف ليس نسخة احتياطية لهذا البرنامج.","err");return;}
+      if(!window.confirm("استيراد هذه النسخة سيستبدل تقدّمك الحالي على هذا الجهاز. متابعة؟"))return;
+      state.done={};state.postponed={};state.moved={};state.results={};state.rpe={};
+      applyState(s);
+      if(state.weekAuto)state.week=autoWeek();
+      syncInputs();renderMeter();rerender();
+      var n=Object.keys(state.done).length,r=Object.keys(state.results).length;
+      dbMsg("✓ استُوردت النسخة: "+n+" تمرين مُنجز و"+r+" نتيجة اختبار.","ok");
+    };
+    rd.readAsText(file);
+  }
+
+  /* --- iCalendar (RFC 5545) --- */
+  function icsEsc(s){return String(s).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n");}
+  /* الطيّ عند ٧٥ ثمانيّة دون كسر محرف متعدّد البايتات — النص عربي وفيه رموز
+     خارج المستوى الأساسي (إيموجي)، لذا نمرّ على نقاط الترميز لا على وحدات UTF-16. */
+  function utf8Len(cp){return cp<0x80?1:cp<0x800?2:cp<0x10000?3:4;}
+  function icsFold(line){
+    var chars=Array.from(line),out="",cur="",n=0;
+    for(var i=0;i<chars.length;i++){
+      var b=utf8Len(chars[i].codePointAt(0));
+      if(n+b>73){out+=cur+"\r\n ";cur="";n=1;}
+      cur+=chars[i];n+=b;
+    }
+    return out+cur;
+  }
+  function icsStamp(d){
+    function p(n){return (n<10?"0":"")+n;}
+    return d.getUTCFullYear()+p(d.getUTCMonth()+1)+p(d.getUTCDate())+"T"+
+           p(d.getUTCHours())+p(d.getUTCMinutes())+p(d.getUTCSeconds())+"Z";
+  }
+  function icsDate(d){return toISO(d).replace(/-/g,"");}
+  function exportICS(){
+    var rows=scheduleAll();
+    if(!rows.length){dbMsg("لا توجد تمارين لتصديرها.","err");return;}
+    var now=icsStamp(new Date());
+    var L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//trainsaud//YYIR1 8-week//AR",
+           "CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:برنامج اليو-يو YYIR1"];
+    rows.forEach(function(x){
+      var isTest=(x.w.zone||x.day.zone)==="test";
+      var title=(isTest?"🏁 ":"🏃 ")+"أسبوع "+x.wk+" · "+x.w.id;
+      var desc=[x.day.focus||"",
+        "المدّة التقريبية: "+(isTest?"مفتوحة":Math.round(workoutSecs(x.w)/60)+" دقيقة"),
+        x.w.notes||"",
+        state.postponed[x.w.id]?"(مؤجّل)":"",
+        state.moved[x.w.id]?"(منقول عن موعده الأصلي)":""].filter(Boolean).join("\n");
+      L.push("BEGIN:VEVENT");
+      L.push("UID:"+x.w.id.toLowerCase()+"-"+icsDate(x.date)+"@trainsaud");
+      L.push("DTSTAMP:"+now);
+      L.push("DTSTART;VALUE=DATE:"+icsDate(x.date));
+      L.push("DTEND;VALUE=DATE:"+icsDate(addDays(x.date,1)));
+      L.push(icsFold("SUMMARY:"+icsEsc(title)));
+      L.push(icsFold("DESCRIPTION:"+icsEsc(desc)));
+      if(state.done[x.w.id])L.push("STATUS:CONFIRMED");
+      L.push("TRANSP:TRANSPARENT");
+      L.push("END:VEVENT");
+    });
+    L.push("END:VCALENDAR");
+    var name="yoyo-program-"+toISO(startDate())+".ics";
+    if(saveFile(name,L.join("\r\n")+"\r\n","text/calendar"))
+      dbMsg("✓ صُدِّر "+rows.length+" تمرينًا إلى "+name+" — افتحه لإضافته لتقويم جوالك.","ok");
+    else dbMsg("تعذّر إنشاء ملف التقويم في هذا المتصفّح.","err");
+  }
+
+  /* ---------- Progress ---------- */
+  function renderProgress(){
+    var all=allWorkouts();var total=all.length;
+    var done=all.filter(function(w){return state.done[w.id];}).length;
+    var post=postponedList().length;
+    document.getElementById("pg-count").textContent=done;
+    document.querySelectorAll(".progress .lab b")[1].textContent=total;
+    document.getElementById("pg-bar").style.width=(total?Math.round(done/total*100):0)+"%";
+    var lab=document.querySelector(".progress .lab");
+    var ex=lab.querySelector(".pg-post");
+    if(post){
+      if(!ex){ex=el("span","pg-post");ex.style.color="var(--ink-3)";lab.appendChild(ex);}
+      ex.textContent=" · "+post+" مؤجّلة";
+    }else if(ex){ex.remove();}
+  }
+
+  /* ---------- Countdown ---------- */
+  function renderCountdown(){
+    var now=new Date();now.setHours(0,0,0,0);
+    var diff=Math.ceil((testDate()-now)/86400000);
+    var elc=document.getElementById("countdown");
+    var lbl=elc.previousElementSibling; // "يتبقّى على الاختبار"
+    var suf=elc.nextElementSibling;     // "يوم"
+    if(diff<0){elc.textContent="انتهى";if(lbl)lbl.textContent="مضى موعد";if(suf)suf.hidden=true;}
+    else if(diff===0){elc.textContent="اليوم";if(lbl)lbl.textContent="موعد الاختبار";if(suf)suf.hidden=true;}
+    else{elc.textContent=diff;if(lbl)lbl.textContent="يتبقّى على الاختبار";if(suf)suf.hidden=false;}
+    var ld=document.getElementById("lede-date");if(ld)ld.textContent=fmtDate(state.testDate);
+  }
+
+  /* ---------- Inputs ---------- */
+  function syncInputs(){
+    document.getElementById("in-age").value=state.age;
+    document.getElementById("in-rhr").value=state.rhr;
+    document.getElementById("in-max").value=state.max||"";
+    document.getElementById("in-date").value=state.testDate;
+  }
+  function onInput(){
+    var a=+document.getElementById("in-age").value;
+    var r=+document.getElementById("in-rhr").value;
+    var m=+document.getElementById("in-max").value;
+    if(a>=10&&a<=90)state.age=a;
+    if(r>=30&&r<=110)state.rhr=r;
+    state.max=(m>=140&&m<=220)?m:null;
+    save();renderMeter();renderWeek();renderFit();
+  }
+
+  /* ---------- Theme ---------- */
+  (function(){var t;try{t=localStorage.getItem("yoyo_theme");}catch(e){}
+    if(t)document.documentElement.setAttribute("data-theme",t);
+    document.getElementById("theme").addEventListener("click",function(){
+      var cur=document.documentElement.getAttribute("data-theme");
+      var isDark=cur?cur==="dark":window.matchMedia("(prefers-color-scheme:dark)").matches;
+      var next=isDark?"light":"dark";
+      document.documentElement.setAttribute("data-theme",next);
+      try{localStorage.setItem("yoyo_theme",next);}catch(e){}
+      renderMeter();
+    });
+  })();
+
+  /* ---------- FIT script (مُولَّد من بيانات البرنامج ونطاقاتك الحالية) ---------- */
+  var FIT_KIND={"Warm Up":"warmup","Cool Down":"cooldown","Run":"active",
+                "Recover":"recovery","Rest":"rest","Exercise":"active"};
+  var FIT_TGT={wu:"`hr:${Z.wu[0]}:${Z.wu[1]}`",z2:"`hr:${Z.z2[0]}:${Z.z2[1]}`",
+               z3:"`hr:${Z.z3[0]}:${Z.z3[1]}`",z4:"`hr:${Z.z4[0]}:${Z.z4[1]}`",
+               cd:"`hrmax:${Z.cd}`",cd_low:"`hrmax:${Z.cdLow}`",lap:'"lap"',none:'"none"'};
+  function fitStep(s,inRep){
+    var kind=FIT_KIND[s.t]||"active";
+    if(inRep&&kind==="active")kind="interval";
+    if(s.d==="Lap Button")return '{kind:"'+kind+'", dur:null, tgt:"lap"}';
+    return '{kind:"'+kind+'", dur:'+durSecs(s.d)+', tgt:'+(FIT_TGT[s.tg]||'"none"')+'}';
+  }
+  function fitZLine(){
+    var z=zones();
+    return "const Z = { wu:["+z.warmup[0]+","+z.warmup[1]+"], z2:["+z.z[1].lo+","+z.z[1].hi+
+           "], z3:["+z.z[2].lo+","+z.z[2].hi+"], z4:["+z.z[3].lo+","+z.z[3].hi+
+           "], cd:"+z.cd+", cdLow:"+z.cdlow+" };";
+  }
+  function fitWorkoutLines(){
+    var out=[];
+    WEEKS.forEach(function(wk){
+      out.push("  // ── أسبوع "+wk.n+" · "+wk.phase+" ──");
+      weekWorkouts(wk).forEach(function(w){
+        var steps=w.steps.map(function(s){
+          if(s.t==="Repeat")return '{kind:"repeat", reps:'+s.reps+', sub:[ '+
+            s.sub.map(function(x){return fitStep(x,true);}).join(", ")+' ]}';
+          return fitStep(s,false);
+        });
+        out.push('  { name:"'+w.id+'", sport:"'+(w.activity==="Strength"?"training":"running")+'", steps:[');
+        steps.forEach(function(t,i){out.push("     "+t+(i<steps.length-1?",":""));});
+        out.push("  ]},");
+      });
+    });
+    return out;
+  }
+  function buildFIT(){
+    return FIT_HEAD.concat([fitZLine(),
+'',
+'// dur بالثواني. tgt: "hr:lo:hi" أو "hrmax:v" أو "none" أو "lap"',
+'const WORKOUTS = [']).concat(fitWorkoutLines()).concat(["];",""]).concat(FIT_TAIL).join("\n");
+  }
+  var FIT_HEAD=[
+'// generate-fit-workouts.js  —  توليد ملفات .FIT لكل تمرين',
+'// مُولَّد تلقائيًا من البرنامج ومن نطاقات نبضك الحالية — أعِد التنزيل بعد أي تعديل عليها.',
+'// التشغيل: node generate-fit-workouts.js   ثم انسخ مجلد out/ إلى /GARMIN/NewFiles',
+'const fs = require("fs");',
+'const path = require("path");',
+'const { Encoder, Profile } = require("@garmin/fitsdk");',
+'',
+'// نطاقاتك المحسوبة بطريقة Karvonen (بالنبضة/الدقيقة). في FIT يُرمَّز النبض المطلق = القيمة + 100.'
+  ];
+  var FIT_TAIL=[
+'const INTENSITY = { warmup:"warmup", interval:"active", active:"active",',
+'                    recovery:"recovery", rest:"rest", cooldown:"cooldown" };',
+'',
+'function target(step, msg){',
+'  if(!step.tgt || step.tgt==="none" || step.tgt==="lap"){ msg.targetType="open"; return; }',
+'  const p = step.tgt.split(":");',
+'  if(p[0]==="hr"){ msg.targetType="heartRate"; msg.targetValue=0;',
+'    msg.customTargetHeartRateLow  = Number(p[1])+100;   // absolute bpm',
+'    msg.customTargetHeartRateHigh = Number(p[2])+100; }',
+'  else if(p[0]==="hrmax"){ msg.targetType="heartRate"; msg.targetValue=0;',
+'    msg.customTargetHeartRateLow  = 100;',
+'    msg.customTargetHeartRateHigh = Number(p[1])+100; }',
+'}',
+'',
+'function duration(step, msg){',
+'  if(step.tgt==="lap" || step.dur==null){ msg.durationType="open"; }',
+'  else { msg.durationType="time"; msg.durationValue = step.dur*1000; } // ms',
+'}',
+'',
+'function buildSteps(list, out){',
+'  for(const step of list){',
+'    if(step.kind==="repeat"){',
+'      const from = out.length;                 // فهرس أول خطوة في الجولة',
+'      buildSteps(step.sub, out);',
+'      out.push({ messageIndex: out.length, durationType:"repeatUntilStepsCmplt",',
+'                 durationValue: from, targetType:"open", targetValue: step.reps });',
+'    } else {',
+'      const msg = { messageIndex: out.length, intensity: INTENSITY[step.kind]||"active" };',
+'      duration(step, msg); target(step, msg);',
+'      out.push(msg);',
+'    }',
+'  }',
+'}',
+'',
+'fs.mkdirSync("out", { recursive:true });',
+'for(const w of WORKOUTS){',
+'  const steps=[]; buildSteps(w.steps, steps);',
+'  const enc = new Encoder();',
+'  enc.writeMesg("fileId", { type:"workout", manufacturer:"development",',
+'                            product:0, timeCreated:new Date(), serialNumber:0 });',
+'  enc.writeMesg("workout", { wktName:w.name, sport:w.sport || "running",',
+'                             numValidSteps:steps.length });',
+'  steps.forEach(s => enc.writeMesg("workoutStep", s));',
+'  fs.writeFileSync(path.join("out", w.name + ".fit"), Buffer.from(enc.close()));',
+'  console.log("✓", w.name + ".fit");',
+'}',
+'// ملاحظة: أسماء الحقول تتبع FIT Profile وقد تختلف قليلًا بين إصدارات المكتبة —',
+'// راجع @garmin/fitsdk إن ظهر خطأ حقل، والأضمن عمليًا هو الإدخال اليدوي.'
+  ];
+
+  function renderFit(){
+    var t=buildFIT();
+    document.getElementById("fitcode").textContent=t;
+    return t;
+  }
+
+  /* ---------- Boot ---------- */
+  renderFit();
+  document.querySelector('[data-copy="fit"]').addEventListener("click",function(){
+    var b=this;if(navigator.clipboard){navigator.clipboard.writeText(buildFIT()).then(function(){b.textContent="✓ نُسخ";setTimeout(function(){b.textContent="⧉ نسخ السكربت";},1600);});}
+  });
+  document.getElementById("fit-dl").addEventListener("click",function(){
+    var b=this;
+    if(saveFile("generate-fit-workouts.js",buildFIT(),"text/javascript")){
+      b.textContent="✓ نُزّل";setTimeout(function(){b.textContent="⭳ نزّل الملف";},1600);
+    }
+  });
+  ["in-age","in-rhr","in-max"].forEach(function(id){document.getElementById(id).addEventListener("input",onInput);});
+  document.getElementById("in-date").addEventListener("change",function(){
+    var v=this.value;if(v&&/^\d{4}-\d{2}-\d{2}$/.test(v)){state.testDate=v;
+      if(state.weekAuto)state.week=autoWeek();
+      rerender();}
+  });
+  document.getElementById("db-export").addEventListener("click",exportBackup);
+  document.getElementById("db-ics").addEventListener("click",exportICS);
+  document.getElementById("db-import").addEventListener("click",function(){document.getElementById("db-file").click();});
+  document.getElementById("db-file").addEventListener("change",function(){
+    if(this.files&&this.files[0])importBackup(this.files[0]);
+    this.value="";
+  });
+  document.getElementById("pg-reset").addEventListener("click",function(){
+    if(window.confirm("تصفير كل علامات الإنجاز والتأجيل؟")){state.done={};state.postponed={};rerender();}
+  });
+
+  syncInputs();renderMeter();renderPlanCtl();renderRail();renderWeek();renderProgress();renderCountdown();renderResults();
+})();
+</script>
+
+<script>
+window.__YOYO_TL={"a":"audio/yoyo.mp3","ts":23,"fb":29.27,"td":4480,"lv":[[1,40.56,11.5,1,0,40],[2,58.14,12.5,2,40,120],[3,91.28,13.5,2,120,200],[4,122.71,14,16,200,840],[5,366.57,14.5,11,840,1280],[6,530.8,15,9,1280,1640],[7,661.64,15.5,12,1640,2120],[8,832.74,16,12,2120,2600],[9,1000.39,16.5,12,2600,3080],[10,1164.8,17,12,3080,3560],[11,1326.16,17.5,12,3560,4040],[12,1484.65,18,11,4040,4480]],"sg":[[29.27,1,11.5,1,0,1],[35.54,0,11.5,1,0,1],[40.56,1,11.5,1,0,1],[46.84,1,11.5,1,20,1],[53.12,0,11.5,1,40,1],[58.14,1,12.5,2,40,2],[63.92,1,12.5,2,60,2],[69.69,0,12.5,2,80,2],[74.71,1,12.5,2,80,3],[80.49,1,12.5,2,100,3],[86.26,0,12.5,2,120,3],[91.28,1,13.5,3,120,4],[96.63,1,13.5,3,140,4],[101.98,0,13.5,3,160,4],[107,1,13.5,3,160,5],[112.35,1,13.5,3,180,5],[117.69,0,13.5,3,200,5],[122.71,1,14,4,200,6],[127.87,1,14,4,220,6],[133.03,0,14,4,240,6],[138.04,1,14,4,240,7],[143.2,1,14,4,260,7],[148.36,0,14,4,280,7],[153.37,1,14,4,280,8],[158.53,1,14,4,300,8],[163.69,0,14,4,320,8],[168.71,1,14,4,320,9],[173.86,1,14,4,340,9],[179.02,0,14,4,360,9],[184.04,1,14,4,360,10],[189.2,1,14,4,380,10],[194.35,0,14,4,400,10],[199.37,1,14,4,400,11],[204.53,1,14,4,420,11],[209.68,0,14,4,440,11],[214.7,1,14,4,440,12],[219.86,1,14,4,460,12],[225.02,0,14,4,480,12],[230.03,1,14,4,480,13],[235.19,1,14,4,500,13],[240.35,0,14,4,520,13],[245.36,1,14,4,520,14],[250.43,1,14,4,540,14],[255.5,0,14,4,560,14],[260.51,1,14,4,560,15],[265.58,1,14,4,580,15],[270.65,0,14,4,600,15],[275.66,1,14,4,600,16],[280.73,1,14,4,620,16],[285.8,0,14,4,640,16],[290.81,1,14,4,640,17],[295.88,1,14,4,660,17],[300.95,0,14,4,680,17],[305.97,1,14,4,680,18],[311.03,1,14,4,700,18],[316.1,0,14,4,720,18],[321.12,1,14,4,720,19],[326.18,1,14,4,740,19],[331.25,0,14,4,760,19],[336.27,1,14,4,760,20],[341.33,1,14,4,780,20],[346.4,0,14,4,800,20],[351.42,1,14,4,800,21],[356.49,1,14,4,820,21],[361.55,0,14,4,840,21],[366.57,1,14.5,5,840,22],[371.55,1,14.5,5,860,22],[376.53,0,14.5,5,880,22],[381.55,1,14.5,5,880,23],[386.53,1,14.5,5,900,23],[391.51,0,14.5,5,920,23],[396.52,1,14.5,5,920,24],[401.5,1,14.5,5,940,24],[406.48,0,14.5,5,960,24],[411.5,1,14.5,5,960,25],[416.48,1,14.5,5,980,25],[421.46,0,14.5,5,1000,25],[426.47,1,14.5,5,1000,26],[431.45,1,14.5,5,1020,26],[436.43,0,14.5,5,1040,26],[441.45,1,14.5,5,1040,27],[446.43,1,14.5,5,1060,27],[451.41,0,14.5,5,1080,27],[456.42,1,14.5,5,1080,28],[461.4,1,14.5,5,1100,28],[466.38,0,14.5,5,1120,28],[471.4,1,14.5,5,1120,29],[476.38,1,14.5,5,1140,29],[481.36,0,14.5,5,1160,29],[486.37,1,14.5,5,1160,30],[491.27,1,14.5,5,1180,30],[496.17,0,14.5,5,1200,30],[501.18,1,14.5,5,1200,31],[506.08,1,14.5,5,1220,31],[510.97,0,14.5,5,1240,31],[515.99,1,14.5,5,1240,32],[520.88,1,14.5,5,1260,32],[525.78,0,14.5,5,1280,32],[530.8,1,15,6,1280,33],[535.61,1,15,6,1300,33],[540.42,0,15,6,1320,33],[545.44,1,15,6,1320,34],[550.25,1,15,6,1340,34],[555.07,0,15,6,1360,34],[560.08,1,15,6,1360,35],[564.9,1,15,6,1380,35],[569.71,0,15,6,1400,35],[574.73,1,15,6,1400,36],[579.46,1,15,6,1420,36],[584.2,0,15,6,1440,36],[589.21,1,15,6,1440,37],[593.95,1,15,6,1460,37],[598.68,0,15,6,1480,37],[603.7,1,15,6,1480,38],[608.43,1,15,6,1500,38],[613.17,0,15,6,1520,38],[618.18,1,15,6,1520,39],[622.92,1,15,6,1540,39],[627.65,0,15,6,1560,39],[632.67,1,15,6,1560,40],[637.4,1,15,6,1580,40],[642.14,0,15,6,1600,40],[647.15,1,15,6,1600,41],[651.89,1,15,6,1620,41],[656.62,0,15,6,1640,41],[661.64,1,15.5,7,1640,42],[666.3,1,15.5,7,1660,42],[670.96,0,15.5,7,1680,42],[675.97,1,15.5,7,1680,43],[680.63,1,15.5,7,1700,43],[685.29,0,15.5,7,1720,43],[690.3,1,15.5,7,1720,44],[694.96,1,15.5,7,1740,44],[699.62,0,15.5,7,1760,44],[704.64,1,15.5,7,1760,45],[709.29,1,15.5,7,1780,45],[713.95,0,15.5,7,1800,45],[718.97,1,15.5,7,1800,46],[723.63,1,15.5,7,1820,46],[728.29,0,15.5,7,1840,46],[733.3,1,15.5,7,1840,47],[737.96,1,15.5,7,1860,47],[742.62,0,15.5,7,1880,47],[747.63,1,15.5,7,1880,48],[752.22,1,15.5,7,1900,48],[756.8,0,15.5,7,1920,48],[761.82,1,15.5,7,1920,49],[766.4,1,15.5,7,1940,49],[770.99,0,15.5,7,1960,49],[776,1,15.5,7,1960,50],[780.59,1,15.5,7,1980,50],[785.17,0,15.5,7,2000,50],[790.19,1,15.5,7,2000,51],[794.77,1,15.5,7,2020,51],[799.36,0,15.5,7,2040,51],[804.37,1,15.5,7,2040,52],[808.96,1,15.5,7,2060,52],[813.54,0,15.5,7,2080,52],[818.56,1,15.5,7,2080,53],[823.14,1,15.5,7,2100,53],[827.73,0,15.5,7,2120,53],[832.74,1,16,8,2120,54],[837.26,1,16,8,2140,54],[841.77,0,16,8,2160,54],[846.78,1,16,8,2160,55],[851.3,1,16,8,2180,55],[855.81,0,16,8,2200,55],[860.82,1,16,8,2200,56],[865.34,1,16,8,2220,56],[869.85,0,16,8,2240,56],[874.87,1,16,8,2240,57],[879.38,1,16,8,2260,57],[883.89,0,16,8,2280,57],[888.91,1,16,8,2280,58],[893.42,1,16,8,2300,58],[897.93,0,16,8,2320,58],[902.95,1,16,8,2320,59],[907.46,1,16,8,2340,59],[911.98,0,16,8,2360,59],[916.99,1,16,8,2360,60],[921.43,1,16,8,2380,60],[925.88,0,16,8,2400,60],[930.89,1,16,8,2400,61],[935.33,1,16,8,2420,61],[939.78,0,16,8,2440,61],[944.79,1,16,8,2440,62],[949.23,1,16,8,2460,62],[953.68,0,16,8,2480,62],[958.69,1,16,8,2480,63],[963.14,1,16,8,2500,63],[967.58,0,16,8,2520,63],[972.59,1,16,8,2520,64],[977.04,1,16,8,2540,64],[981.48,0,16,8,2560,64],[986.49,1,16,8,2560,65],[990.94,1,16,8,2580,65],[995.38,0,16,8,2600,65],[1000.39,1,16.5,9,2600,66],[1004.77,1,16.5,9,2620,66],[1009.15,0,16.5,9,2640,66],[1014.16,1,16.5,9,2640,67],[1018.54,1,16.5,9,2660,67],[1022.91,0,16.5,9,2680,67],[1027.93,1,16.5,9,2680,68],[1032.3,1,16.5,9,2700,68],[1036.68,0,16.5,9,2720,68],[1041.69,1,16.5,9,2720,69],[1046.07,1,16.5,9,2740,69],[1050.45,0,16.5,9,2760,69],[1055.46,1,16.5,9,2760,70],[1059.84,1,16.5,9,2780,70],[1064.21,0,16.5,9,2800,70],[1069.22,1,16.5,9,2800,71],[1073.6,1,16.5,9,2820,71],[1077.98,0,16.5,9,2840,71],[1082.99,1,16.5,9,2840,72],[1087.3,1,16.5,9,2860,72],[1091.61,0,16.5,9,2880,72],[1096.63,1,16.5,9,2880,73],[1100.93,1,16.5,9,2900,73],[1105.25,0,16.5,9,2920,73],[1110.26,1,16.5,9,2920,74],[1114.57,1,16.5,9,2940,74],[1118.88,0,16.5,9,2960,74],[1123.89,1,16.5,9,2960,75],[1128.21,1,16.5,9,2980,75],[1132.52,0,16.5,9,3000,75],[1137.53,1,16.5,9,3000,76],[1141.84,1,16.5,9,3020,76],[1146.15,0,16.5,9,3040,76],[1151.16,1,16.5,9,3040,77],[1155.48,1,16.5,9,3060,77],[1159.79,0,16.5,9,3080,77],[1164.8,1,17,10,3080,78],[1169.05,1,17,10,3100,78],[1173.29,0,17,10,3120,78],[1178.31,1,17,10,3120,79],[1182.56,1,17,10,3140,79],[1186.8,0,17,10,3160,79],[1191.82,1,17,10,3160,80],[1196.07,1,17,10,3180,80],[1200.31,0,17,10,3200,80],[1205.33,1,17,10,3200,81],[1209.57,1,17,10,3220,81],[1213.82,0,17,10,3240,81],[1218.84,1,17,10,3240,82],[1223.08,1,17,10,3260,82],[1227.33,0,17,10,3280,82],[1232.34,1,17,10,3280,83],[1236.59,1,17,10,3300,83],[1240.84,0,17,10,3320,83],[1245.85,1,17,10,3320,84],[1250.04,1,17,10,3340,84],[1254.22,0,17,10,3360,84],[1259.24,1,17,10,3360,85],[1263.42,1,17,10,3380,85],[1267.61,0,17,10,3400,85],[1272.62,1,17,10,3400,86],[1276.81,1,17,10,3420,86],[1280.99,0,17,10,3440,86],[1286.01,1,17,10,3440,87],[1290.19,1,17,10,3460,87],[1294.38,0,17,10,3480,87],[1299.39,1,17,10,3480,88],[1303.58,1,17,10,3500,88],[1307.76,0,17,10,3520,88],[1312.77,1,17,10,3520,89],[1316.96,1,17,10,3540,89],[1321.14,0,17,10,3560,89],[1326.16,1,17.5,11,3560,90],[1330.28,1,17.5,11,3580,90],[1334.41,0,17.5,11,3600,90],[1339.43,1,17.5,11,3600,91],[1343.55,1,17.5,11,3620,91],[1347.68,0,17.5,11,3640,91],[1352.69,1,17.5,11,3640,92],[1356.82,1,17.5,11,3660,92],[1360.94,0,17.5,11,3680,92],[1365.96,1,17.5,11,3680,93],[1370.08,1,17.5,11,3700,93],[1374.21,0,17.5,11,3720,93],[1379.22,1,17.5,11,3720,94],[1383.35,1,17.5,11,3740,94],[1387.47,0,17.5,11,3760,94],[1392.49,1,17.5,11,3760,95],[1396.61,1,17.5,11,3780,95],[1400.74,0,17.5,11,3800,95],[1405.75,1,17.5,11,3800,96],[1409.82,1,17.5,11,3820,96],[1413.89,0,17.5,11,3840,96],[1418.9,1,17.5,11,3840,97],[1422.97,1,17.5,11,3860,97],[1427.04,0,17.5,11,3880,97],[1432.05,1,17.5,11,3880,98],[1436.12,1,17.5,11,3900,98],[1440.19,0,17.5,11,3920,98],[1445.2,1,17.5,11,3920,99],[1449.27,1,17.5,11,3940,99],[1453.34,0,17.5,11,3960,99],[1458.35,1,17.5,11,3960,100],[1462.42,1,17.5,11,3980,100],[1466.49,0,17.5,11,4000,100],[1471.5,1,17.5,11,4000,101],[1475.57,1,17.5,11,4020,101],[1479.63,0,17.5,11,4040,101],[1484.65,1,18,12,4040,102],[1488.66,1,18,12,4060,102],[1492.67,0,18,12,4080,102],[1497.69,1,18,12,4080,103],[1501.7,1,18,12,4100,103],[1505.71,0,18,12,4120,103],[1510.72,1,18,12,4120,104],[1514.73,1,18,12,4140,104],[1518.75,0,18,12,4160,104],[1523.76,1,18,12,4160,105],[1527.77,1,18,12,4180,105],[1531.78,0,18,12,4200,105],[1536.8,1,18,12,4200,106],[1540.81,1,18,12,4220,106],[1544.82,0,18,12,4240,106],[1549.83,1,18,12,4240,107],[1553.84,1,18,12,4260,107],[1557.86,0,18,12,4280,107],[1562.87,1,18,12,4280,108],[1566.83,1,18,12,4300,108],[1570.78,0,18,12,4320,108],[1575.79,1,18,12,4320,109],[1579.75,1,18,12,4340,109],[1583.71,0,18,12,4360,109],[1588.72,1,18,12,4360,110],[1592.68,1,18,12,4380,110],[1596.63,0,18,12,4400,110],[1601.65,1,18,12,4400,111],[1605.6,1,18,12,4420,111],[1609.56,0,18,12,4440,111],[1614.57,1,18,12,4440,112],[1618.53,1,18,12,4460,112],[1622.49,0,18,12,4480,112]]};
+/* ===== YYIR1 player — real audio recording, screen synced to detected timeline ===== */
+(function(){
+  "use strict";
+  var TL=window.__YOYO_TL||{a:"audio/yoyo.mp3",ts:0,td:0,lv:[],sg:[]};
+  var AUDIO_PRIMARY=TL.a||"audio/yoyo.mp3";
+  var AUDIO_FALLBACK=window.__YOYO_AUDIO_FALLBACK||""; // optional (artifact asset)
+  var SEG=TL.sg||[], LV=TL.lv||[];
+  var $=function(id){return document.getElementById(id);};
+  var audio=null, raf=0, triedFallback=false;
+
+  function makeAudio(src){
+    var a=new Audio(); a.preload="auto"; a.src=src;
+    try{a.volume=(+$("yy-vol").value)/100;}catch(e){}
+    a.addEventListener("error",function(){
+      if(!triedFallback&&AUDIO_FALLBACK){triedFallback=true;a.src=AUDIO_FALLBACK;a.load();}
+      else{$("yy-plab").textContent="تعذّر تحميل الصوت";$("yy-pbig").textContent="—";
+        $("yy-pnx").textContent="الصوت متاح على النسخة المنشورة (trainsaud.netlify.app).";}
+    });
+    a.addEventListener("ended",function(){stopLoop();ended();});
+    a.addEventListener("play",function(){btns();startLoop();});
+    a.addEventListener("pause",function(){btns();});
+    return a;
+  }
+  function ensureAudio(){ if(!audio)audio=makeAudio(AUDIO_PRIMARY); return audio; }
+
+  function segAt(t){ if(!SEG.length)return -1; var lo=0,hi=SEG.length-1,ans=-1;
+    while(lo<=hi){var m=(lo+hi)>>1; if(SEG[m][0]<=t){ans=m;lo=m+1;}else hi=m-1;} return ans; }
+  function fmtSpeed(s){return (Math.round(s*10)/10).toFixed(1);}
+
+  function update(){
+    if(!audio)return; var t=audio.currentTime; var ph=$("yy-phase");
+    var t0=SEG.length?SEG[0][0]:1e9;
+    if(t<t0){
+      ph.style.background="var(--test)";
+      $("yy-plab").textContent="استمع للتعليمات";
+      $("yy-pbig").textContent="استعد";
+      $("yy-pnx").textContent="الانطلاق بعد "+Math.max(0,t0-t).toFixed(0)+" ث · قف على خط البداية";
+      $("yy-pfill").style.width="0%";
+      $("yy-level").textContent="—";$("yy-speed").textContent="—";
+      $("yy-shut").textContent="0";$("yy-dist").textContent="0";
+      renderLevels(-1); return;
+    }
+    var i=segAt(t); if(i<0)return; var s=SEG[i], nx=SEG[i+1];
+    var run=s[1]===1; ph.style.background="var("+(run?"--accent":"--z3")+")";
+    $("yy-plab").textContent=run?"اجرِ":"استشفاء (جري خفيف)";
+    $("yy-pbig").textContent=run?"اجرِ!":"استشفِ";
+    var segEnd=nx?nx[0]:s[0]+(run?2:5), len=segEnd-s[0], into=t-s[0], left=Math.max(0,segEnd-t);
+    $("yy-pnx").textContent=(run?"الصافرة بعد ":"انطلاق بعد ")+left.toFixed(1)+" ث";
+    $("yy-pfill").style.width=Math.min(100,len>0?into/len*100:0)+"%";
+    $("yy-level").textContent=s[3];$("yy-speed").textContent=fmtSpeed(s[2]);
+    $("yy-shut").textContent=s[5];$("yy-dist").textContent=s[4];
+    renderLevels(s[3]);
+  }
+  function loop(){ update(); raf=requestAnimationFrame(loop); }
+  function startLoop(){ if(!raf)raf=requestAnimationFrame(loop); }
+  function stopLoop(){ if(raf){cancelAnimationFrame(raf);raf=0;} }
+
+  function renderLevels(curL){ var host=$("yy-levels");
+    if(host.getAttribute("data-built")!=="1"){ host.innerHTML="";
+      LV.forEach(function(L){var d=document.createElement("div");d.setAttribute("data-lv",L[0]);
+        d.innerHTML='<span>مستوى '+L[0]+' · '+fmtSpeed(L[2])+' km/h</span><span>حتى '+L[5]+' م</span>';
+        host.appendChild(d);}); host.setAttribute("data-built","1"); }
+    Array.prototype.forEach.call(host.children,function(c){c.classList.toggle("cur",+c.getAttribute("data-lv")===curL);});
+  }
+  function btns(){ var playing=audio&&!audio.paused;
+    $("yy-start").disabled=!!playing; $("yy-pause").disabled=!playing;
+    $("yy-start").innerHTML=(audio&&audio.currentTime>0&&!playing)?"▶ متابعة":"▶ ابدأ"; }
+  function ended(){ $("yy-phase").style.background="var(--test)";$("yy-plab").textContent="انتهى التسجيل";
+    $("yy-pbig").textContent="أحسنت";$("yy-pnx").textContent="سجّل مسافتك الأخيرة";$("yy-pfill").style.width="100%";
+    btns(); syncSave(); }
+
+  function start(){ var a=ensureAudio(); a.play().catch(function(){$("yy-pnx").textContent="اضغط ابدأ مجددًا للسماح بتشغيل الصوت";}); }
+  function pause(){ if(audio)audio.pause(); stopLoop(); }
+  function reset(){ if(audio){audio.pause();audio.currentTime=0;} stopLoop(); update(); btns(); }
+  function skipIntro(){ var a=ensureAudio(); try{a.currentTime=Math.max(0,(TL.ts||0));}catch(e){} a.play().catch(function(){}); }
+
+  /* ===== حفظ المسافة كنتيجة اختبار ===== */
+  var curTest=null;                       /* معرّف الاختبار الذي فُتح المشغّل منه */
+  function curDist(){ return parseInt($("yy-dist").textContent,10)||0; }
+  function syncSave(){
+    var row=$("yy-saverow");
+    var target=curTest||(window.__nextTestId&&window.__nextTestId());
+    var d=curDist();
+    if(!target||d<=0){ row.hidden=true; return; }
+    row.hidden=false;
+    $("yy-savedist").textContent=d;
+    $("yy-savelab").textContent=(window.__testLabel?window.__testLabel(target):"نتيجتك")+" — توقّفت هنا؟ احفظ المسافة.";
+  }
+  function saveDist(){
+    var target=curTest||(window.__nextTestId&&window.__nextTestId());
+    var d=curDist();
+    if(!target||d<=0)return;
+    if(window.__saveResult){
+      window.__saveResult(target,d);
+      $("yy-savelab").textContent="✓ حُفظت "+d+" م في «"+(window.__testLabel?window.__testLabel(target):"نتيجتك")+"».";
+      $("yy-save").disabled=true;
+      setTimeout(function(){ $("yy-save").disabled=false; syncSave(); },2500);
+    }
+  }
+
+  function open(testId){ curTest=(typeof testId==="string")?testId:null;
+    $("yoyo-overlay").hidden=false; ensureAudio(); renderLevels(-1); update(); btns(); syncSave(); }
+  function close(){ pause(); $("yoyo-overlay").hidden=true; }
+  window.__openYoyo=open;
+
+  $("open-player").addEventListener("click",function(){open(null);});
+  $("yy-close").addEventListener("click",close);
+  $("yy-start").addEventListener("click",start);
+  $("yy-pause").addEventListener("click",function(){pause();syncSave();});
+  $("yy-reset").addEventListener("click",function(){reset();syncSave();});
+  $("yy-save").addEventListener("click",saveDist);
+  $("yy-test").addEventListener("click",skipIntro);
+  $("yy-vol").addEventListener("input",function(){ if(audio)audio.volume=(+this.value)/100; });
+  $("yoyo-overlay").addEventListener("click",function(e){ if(e.target===this)close(); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!$("yoyo-overlay").hidden)close(); });
+})();
+</script>
+<script>
+/* ===== Service worker + تحميل الصوت للاستخدام دون إنترنت ===== */
+(function(){
+  var CACHE="yoyo-ir1-v3", AUDIO="audio/yoyo.mp3";
+  var bar=document.getElementById("offlineBar");
+  var btn=document.getElementById("ob-btn"), tt=document.getElementById("ob-title"),
+      sub=document.getElementById("ob-sub"), prog=document.getElementById("ob-prog"),
+      fill=document.getElementById("ob-fill");
+  if(!bar||!("caches" in window))return;
+  bar.hidden=false;
+
+  function mb(n){return (n/1048576).toFixed(1);}
+  function ready(){
+    bar.classList.add("ready");
+    tt.textContent="✓ الصوت محفوظ على جهازك";
+    sub.textContent="مشغّل الاختبار يعمل الآن بلا إنترنت. احذفه لتحرير المساحة إن احتجت.";
+    btn.textContent="احذف الصوت";btn.className="pill ghost";btn.disabled=false;
+    prog.hidden=true;btn.onclick=remove;
+  }
+  function idle(){
+    bar.classList.remove("ready");
+    tt.textContent="حمّل الصوت للاستخدام دون إنترنت";
+    sub.textContent="تسجيل الاختبار ≈٢٨ ميجا. حمّله مرة واحدة على الشبكة ليعمل يوم الاختبار بلا إنترنت.";
+    btn.textContent="حمّل الآن";btn.className="pill solid";btn.disabled=false;
+    prog.hidden=true;fill.style.width="0";btn.onclick=download;
+  }
+  function check(){
+    caches.open(CACHE).then(function(c){return c.match(new Request(new URL(AUDIO,location.href).href),{ignoreVary:true});})
+      .then(function(hit){hit?ready():idle();}).catch(idle);
+  }
+  function download(){
+    btn.disabled=true;btn.textContent="جارٍ التحميل…";prog.hidden=false;
+    fetch(AUDIO).then(function(res){
+      if(!res.ok)throw new Error("HTTP "+res.status);
+      var total=+res.headers.get("content-length")||0, type=res.headers.get("content-type")||"audio/mpeg";
+      if(!res.body){return res.blob().then(function(b){return {blob:b,type:type};});}
+      var reader=res.body.getReader(), chunks=[], got=0;
+      return (function pump(){
+        return reader.read().then(function(r){
+          if(r.done)return {blob:new Blob(chunks,{type:type}),type:type};
+          chunks.push(r.value);got+=r.value.length;
+          if(total){fill.style.width=Math.round(got/total*100)+"%";}
+          sub.textContent="نُزّل "+mb(got)+(total?" من "+mb(total):"")+" ميجا…";
+          return pump();
+        });
+      })();
+    }).then(function(o){
+      return caches.open(CACHE).then(function(c){
+        return c.put(new Request(new URL(AUDIO,location.href).href),
+          new Response(o.blob,{status:200,headers:{"Content-Type":o.type,"Content-Length":String(o.blob.size)}}));
+      });
+    }).then(check).catch(function(e){
+      sub.textContent="تعذّر التحميل ("+(e&&e.message||"خطأ")+"). تأكّد من الاتصال وحاول مجددًا.";
+      btn.disabled=false;btn.textContent="أعد المحاولة";prog.hidden=true;
+    });
+  }
+  function remove(){
+    if(!window.confirm("حذف الصوت المخزَّن؟ سيحتاج المشغّل إنترنت بعدها."))return;
+    btn.disabled=true;
+    caches.open(CACHE).then(function(c){return c.delete(new Request(new URL(AUDIO,location.href).href),{ignoreVary:true});})
+      .then(check).catch(check);
+  }
+
+  if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+    window.addEventListener("load",function(){
+      navigator.serviceWorker.register("sw.js").catch(function(e){console.warn("SW:",e);});
+    });
+  }
+  check();
+})();
+</script>
+</body>
+</html>
